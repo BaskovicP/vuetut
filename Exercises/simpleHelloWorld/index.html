@@ -8,11 +8,12 @@
     <script src="../../vue.js"></script>
   </head>
   <body>
-    <p id="vue-app">
-      {{ title }}
+    <div id="vue-app">
+      <h1 v-once>{{ title }}</h1>
       <br />
       <input type="text" v-on:input="changeTitle" />
-    </p>
+      <button v-on:click="springAlertBox">Don't touch it</button>
+    </div>
   </body>
   <script>
     new Vue({
@@ -23,6 +24,13 @@
       methods: {
         changeTitle: function(event) {
           this.title = event.target.value;
+        },
+        springAlertBox: function(event) {
+          //simple checking of how you can bind anything a function or a data variable to an atribute
+          this.title = "carrot";
+          alert(
+            "You clicked the naughty button and changed the title to carrot, then why doesn't it change?"
+          );
         }
       }
     });
