@@ -15,13 +15,30 @@
     <input type="text" v-on:keydown.enter="storeInputIntoData" />
     <p>{{ value }}</p>
   </div>
+
+  <div>
+    <span v-on:mousemove="X = $event.clientX; Y= $event.clientY"
+      >Helllllo
+      <span>Children span</span>
+    </span>
+    <p>X:{{X}},Y:{{Y}}</p>
+  </div>
+  <div>
+        <span v-on:mousemove.self="X = $event.clientX; Y= $event.clientY"
+          >Helllllo2
+          <span>Children span2 blocked with .self</span>
+        </span>
+        <p>X:{{X}},Y:{{Y}}</p>
+      </div>
 </div>
 
 <script>
   new Vue({
     el: "#exercise",
     data: {
-      value: ""
+      value: "",
+      X: 0,
+      Y: 0
     },
     methods: {
       showAlert: function() {
