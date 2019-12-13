@@ -11,7 +11,7 @@
     </section>
     <section v-if="newGameInSession" class="row controls">
       <div class="small-12 columns" id="commands">
-        <button id="attack">ATTACK</button>
+        <button id="attack" @click="attack">ATTACK</button>
         <button id="special-attack">SPECIAL ATTACK</button>
         <button id="heal">HEAL</button>
         <button id="give-up" @click="giveUp">GIVE UP</button>
@@ -52,6 +52,13 @@ export default {
     },
     giveUp: function() {
       this.newGameInSession = false;
+    },
+    attack: function() {
+      this.monsterHealth -= Math.round(Math.random() * 10)+1;
+      this.playerHealth -= Math.round(Math.random() * 10)+1;
+    },
+    writeLog: function() {
+      
     }
   }
 };
