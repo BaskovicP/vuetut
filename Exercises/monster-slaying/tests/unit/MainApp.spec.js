@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import HealthComponent from "@/components/HealthComponent.vue";
 
-describe.only("HealthComponent.vue", () => {
+describe("HealthComponent.vue", () => {
   const prepareWrapper = props => {
     return mount(App, {
       propsData: props
@@ -37,5 +37,20 @@ describe.only("HealthComponent.vue", () => {
     expect(wrapper.find("#commands").exists()).toBe(false);
     expect(wrapper.find(".log").exists()).toBe(false);
   });
-  it("should decrease monster health if you attack", () => {});
+  it("should decrease monster and player health if you attack", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    wrapper.find("#attack").trigger("click");
+    expect(
+      wrapper
+        .findAll(HealthComponent)
+        .at(1)
+        .props("health")
+    ).toBeLessThan(100);
+    expect(
+      wrapper
+        .findAll(HealthComponent)
+        .at(0)
+        .props("health")
+    ).toBeLessThan(100);
+  });
 });
