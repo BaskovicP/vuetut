@@ -17,10 +17,16 @@
         <button id="give-up" @click="giveUp">GIVE UP</button>
       </div>
     </section>
-    <section v-if="newGameInSession" class="row log">
+    <section v-if="showLogs" class="row log">
       <div class="small-12 columns">
         <ul>
-          <ActionRow></ActionRow>
+          <section v-for="(logItem, index) in logs" :key="'action' + index">
+            <ActionRow
+              :subject="logItem.subject"
+              :acusativus="logItem.acusativus"
+              :damage="logItem.damage"
+            />
+          </section>
         </ul>
       </div>
     </section>
@@ -41,25 +47,42 @@ export default {
     return {
       playerHealth: 100,
       monsterHealth: 100,
-      newGameInSession: false
+      newGameInSession: false,
+      logs: []
     };
+  },
+  computed: {
+    showLogs: function() {
+      return this.newGameInSession && this.logs.length > 0;
+    }
   },
   methods: {
     resetGame: function() {
       (this.playerHealth = 100),
         (this.monsterHealth = 100),
-        (this.newGameInSession = true);
+        (this.newGameInSession = true),
+        (this.logs = []);
     },
     giveUp: function() {
       this.newGameInSession = false;
     },
     attack: function() {
-      this.monsterHealth -= Math.round(Math.random() * 10)+1;
-      this.playerHealth -= Math.round(Math.random() * 10)+1;
+      let playerAttackDamage = Math.round(Math.random() * 10) + 1;
+      let monsterAttackDamage = Math.round(Math.random() * 10) + 1;
+      this.monsterHealth -= playerAttackDamage;
+      this.playerHealth -= monsterAttackDamage;
+      this.logs.push({
+        subject: "PLAYER",
+        acusativus: "MONSTER",
+        damage: playerAttackDamage
+      });
+      this.logs.push({
+        subject: "MONSTER",
+        acusativus: "PLAYER",
+        damage: monsterAttackDamage
+      });
     },
-    writeLog: function() {
-      
-    }
+    writeLog: function() {}
   }
 };
 </script>
