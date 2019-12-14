@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import HealthComponent from "@/components/HealthComponent.vue";
+import ActionRow from "@/components/ActionRow.vue";
 
 describe("HealthComponent.vue", () => {
   const prepareWrapper = props => {
@@ -29,7 +30,7 @@ describe("HealthComponent.vue", () => {
   it("should start the game when we click on the start new game button", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     expect(wrapper.find("#commands").exists()).toBe(true);
-    expect(wrapper.find(".log").exists()).toBe(true);
+    expect(wrapper.find(".log").exists()).toBe(false);
   });
   it("should reset everyhing if user gives up", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
@@ -52,5 +53,23 @@ describe("HealthComponent.vue", () => {
         .at(0)
         .props("health")
     ).toBeLessThan(100);
+  });
+  it("should have no logs when starting the game", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    expect(wrapper.find(ActionRow).exists()).toBe(false);
+  });
+  it("should clear the logs when starting a new game", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    wrapper.find("#attack").trigger("click");
+    wrapper.find("#start-game").trigger("click");
+    expect(wrapper.findAll(ActionRow).length).toEqual(0);
+  });
+  it("should create a log insert when player attacks", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    wrapper.find("#attack").trigger("click");
+
+    expect(wrapper.find(ActionRow).text()).toMatch(
+      /PLAYER HITS MONSTER FOR [0-9][0-9]?/
+    );
   });
 });
