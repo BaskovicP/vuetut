@@ -1,6 +1,6 @@
 <template>
   <li :class="dynamicCss">
-    {{ subject }} HITS {{ acusativus }} FOR {{ demage }}
+    {{ subject }} HITS {{ acusativus }} FOR {{ damage }}
   </li>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   props: {
     subject: String,
     acusativus: String,
-    demage: Number
+    damage: Number
   },
   computed: {
     dynamicCss: function() {
