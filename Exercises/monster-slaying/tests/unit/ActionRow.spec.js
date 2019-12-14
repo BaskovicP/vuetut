@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import ActionRow from "@/components/ActionRow.vue";
 
-describe.only("ActionRow.vue", () => {
+describe("ActionRow.vue", () => {
   const prepareWrapper = props => {
     return mount(ActionRow, {
       propsData: props
@@ -16,7 +16,7 @@ describe.only("ActionRow.vue", () => {
     let wrapper = prepareWrapper({
       subject: "MONSTER",
       acusativus: "PLAYER",
-      demage: 10
+      damage: 10
     });
     expect(wrapper.find("li").text()).toEqual("MONSTER HITS PLAYER FOR 10");
     expect(wrapper.find("li").classes()).toContain("red");
@@ -29,14 +29,14 @@ describe.only("ActionRow.vue", () => {
       let wrapper = prepareWrapper({
         subject: "MONSTER",
         acusativus: "PLAYER",
-        demage: 10
+        damage: 10
       });
       expect(wrapper.find("li").text()).toEqual("MONSTER HITS PLAYER FOR 10");
       expect(wrapper.find("li").classes()).toContain("red");
       wrapper.setProps({
         subject: "PLAYER",
         acusativus: "MONSTER",
-        demage: 10
+        damage: 10
       });
       expect(wrapper.find("li").classes()).toContain("blue");
       expect(wrapper.find("li").text()).toEqual("PLAYER HITS MONSTER FOR 10");
