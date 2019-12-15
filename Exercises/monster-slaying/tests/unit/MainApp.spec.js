@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import HealthComponent from "@/components/HealthComponent.vue";
 import ActionRow from "@/components/ActionRow.vue";
+window.confirm = jest.fn(() => true);
 
 describe("HealthComponent.vue", () => {
   const prepareWrapper = props => {
@@ -54,6 +55,13 @@ describe("HealthComponent.vue", () => {
         .props("health")
     ).toBeLessThan(100);
   });
+  it("should perform a special attack", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    wrapper.find("#special-attack").trigger("click");
+    expect(wrapper.find(ActionRow).text()).toMatch(
+      /PLAYER HITS MONSTER FOR [0-9][0-9]?.*/
+    );
+  });
   it("should have no logs when starting the game", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     expect(wrapper.find(ActionRow).exists()).toBe(false);
@@ -71,5 +79,46 @@ describe("HealthComponent.vue", () => {
     expect(wrapper.find(ActionRow).text()).toMatch(
       /PLAYER HITS MONSTER FOR [0-9][0-9]?/
     );
+  });
+  it("should end the game if player or monster health reaches <=0", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+
+    let gameOverAlertSpy = jest.fn();
+    wrapper.setMethods({
+      gameOverAlert: gameOverAlertSpy,
+      generalAttack: function() {
+        this.monsterHealth = -1;
+      }
+    });
+    wrapper.find("#attack").trigger("click");
+    expect(gameOverAlertSpy).toBeCalledTimes(1);
+    expect(gameOverAlertSpy).toBeCalledWith(" win");
+
+    expect(wrapper.find(ActionRow).exists()).toBe(false);
+
+    wrapper.setMethods({
+      generalAttack: function() {
+        this.playerHealth = -1;
+      }
+    });
+    wrapper.find("#attack").trigger("click");
+
+    expect(gameOverAlertSpy).toBeCalledTimes(2);
+    expect(gameOverAlertSpy).toBeCalledWith(" loose");
+  });
+  it("should make the user heal when we click on the heal button but not over 100", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    wrapper.setMethods({
+      generalAttack: jest.fn(function() {
+        this.playerHealth -= 10;
+      })
+    });
+    wrapper.find("#heal").trigger("click");
+    expect(wrapper.find(HealthComponent).text()).toMatch("90");
+
+    wrapper.find("#attack").trigger("click");
+    wrapper.find("#heal").trigger("click");
+
+    expect(wrapper.find(HealthComponent).text()).not.toMatch("70");
   });
 });
