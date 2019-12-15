@@ -59,7 +59,7 @@ describe("HealthComponent.vue", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     wrapper.find("#special-attack").trigger("click");
     expect(wrapper.find(ActionRow).text()).toMatch(
-      /PLAYER HITS MONSTER FOR [0-9][0-9]?.*/
+      /PLAYER HITS MONSTER FOR [0-9][0-9]?(.*)?/
     );
   });
   it("should have no logs when starting the game", () => {
