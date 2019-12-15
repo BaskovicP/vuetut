@@ -28,6 +28,7 @@
               :acusativus="logItem.acusativus"
               :damage="logItem.damage"
               :critical="logItem.critical"
+              :action="logItem.action"
             />
           </section>
         </ul>
@@ -109,8 +110,23 @@ export default {
     },
     heal: function() {
       const healThisMuch = Math.round(this.rgn() * 1.2);
-      if (this.playerHealth + healThisMuch > 100) this.playerHealth = 100;
-      else this.playerHealth += healThisMuch;
+      if (this.playerHealth + healThisMuch > 100) {
+        this.logs.push({
+          subject: "PLAYER",
+          acusativus: "HIMSELF",
+          damage: 100 - this.playerHealth,
+          action: "HEALS"
+        });
+        this.playerHealth = 100;
+      } else {
+        this.playerHealth += healThisMuch;
+        this.logs.push({
+          subject: "PLAYER",
+          acusativus: "HIMSELF",
+          damage: healThisMuch,
+          action: "HEALS"
+        });
+      }
       this.generalAttack(0, this.rgn());
     },
     specialAttack: function() {
