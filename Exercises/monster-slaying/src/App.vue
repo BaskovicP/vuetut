@@ -23,13 +23,7 @@
       <div class="small-12 columns">
         <ul>
           <section v-for="(logItem, index) in logs" :key="'action' + index">
-            <ActionRow
-              :subject="logItem.subject"
-              :acusativus="logItem.acusativus"
-              :damage="logItem.damage"
-              :critical="logItem.critical"
-              :action="logItem.action"
-            />
+            <ActionRow :msg="logItem.msg" />
           </section>
         </ul>
       </div>
@@ -81,23 +75,17 @@ export default {
     generalAttack: function(
       playerAttackDamage,
       monsterAttackDamage,
-      critical = ""
+      critical = { player: "", monster: "" }
     ) {
       this.monsterHealth -= playerAttackDamage;
       this.playerHealth -= monsterAttackDamage;
       if (playerAttackDamage != 0)
         this.logs.push({
-          subject: "PLAYER",
-          acusativus: "MONSTER",
-          damage: playerAttackDamage,
-          critical: critical.player
+          msg: `PLAYER HITS MONSTER FOR ${playerAttackDamage} ${critical.player}`
         });
       if (monsterAttackDamage != 0)
         this.logs.push({
-          subject: "MONSTER",
-          acusativus: "PLAYER",
-          damage: monsterAttackDamage,
-          critical: critical.monster
+          msg: `MONSTER HITS PLAYER FOR ${monsterAttackDamage} ${critical.player}`
         });
     },
     rgn: function() {
@@ -112,19 +100,13 @@ export default {
       const healThisMuch = Math.round(this.rgn() * 1.2);
       if (this.playerHealth + healThisMuch > 100) {
         this.logs.push({
-          subject: "PLAYER",
-          acusativus: "HIMSELF",
-          damage: 100 - this.playerHealth,
-          action: "HEALS"
+          msg: `PLAYER HEALS HIMSELF FOR ${100 - this.playerHealth}`
         });
         this.playerHealth = 100;
       } else {
         this.playerHealth += healThisMuch;
         this.logs.push({
-          subject: "PLAYER",
-          acusativus: "HIMSELF",
-          damage: healThisMuch,
-          action: "HEALS"
+          msg: `PLAYER HEALS HIMSELF FOR ${healThisMuch}`
         });
       }
       this.generalAttack(0, this.rgn());
@@ -138,7 +120,7 @@ export default {
       10% that monster dies from players critical*/
       // TODO: refactor this repeating code
       const rgn = this.rgn;
-      const prefix = "--";
+      const prefix = "  ";
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
         this.generalAttack(rgn(), rgn() * 2, {

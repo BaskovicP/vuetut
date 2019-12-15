@@ -54,6 +54,9 @@ describe("HealthComponent.vue", () => {
         .at(0)
         .props("health")
     ).toBeLessThan(100);
+    expect(wrapper.find(ActionRow).text()).toMatch(
+      /PLAYER HITS MONSTER FOR [0-9][0-9]?$/
+    );
   });
   it("should perform a special attack", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
@@ -109,6 +112,7 @@ describe("HealthComponent.vue", () => {
   it("should make the user heal when we click on the heal button but not over 100", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     wrapper.setMethods({
+      //WARNING: mocking this functiono leaves it unprotected
       generalAttack: jest.fn(function() {
         this.playerHealth -= 10;
       })

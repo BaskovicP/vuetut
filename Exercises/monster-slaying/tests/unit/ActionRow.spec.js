@@ -14,9 +14,7 @@ describe("ActionRow.vue", () => {
 
   it("should have a red class and monster hits player text and class red", () => {
     let wrapper = prepareWrapper({
-      subject: "MONSTER",
-      acusativus: "PLAYER",
-      damage: 10
+      msg: "MONSTER HITS PLAYER FOR 10"
     });
     expect(wrapper.find("li").text()).toEqual("MONSTER HITS PLAYER FOR 10");
     expect(wrapper.find("li").classes()).toContain("red");
@@ -27,16 +25,12 @@ describe("ActionRow.vue", () => {
       "and blue class if player hits monster",
     () => {
       let wrapper = prepareWrapper({
-        subject: "MONSTER",
-        acusativus: "PLAYER",
-        damage: 10
+        msg: "MONSTER HITS PLAYER FOR 10"
       });
       expect(wrapper.find("li").text()).toEqual("MONSTER HITS PLAYER FOR 10");
       expect(wrapper.find("li").classes()).toContain("red");
       wrapper.setProps({
-        subject: "PLAYER",
-        acusativus: "MONSTER",
-        damage: 10
+        msg: "PLAYER HITS MONSTER FOR 10"
       });
       expect(wrapper.find("li").classes()).toContain("blue");
       expect(wrapper.find("li").text()).toEqual("PLAYER HITS MONSTER FOR 10");
@@ -44,10 +38,7 @@ describe("ActionRow.vue", () => {
   );
   it("should write out the critical message", () => {
     let wrapper = prepareWrapper({
-      subject: "MONSTER",
-      acusativus: "PLAYER",
-      damage: 10,
-      critical: "(Demage x 2)"
+      msg: "MONSTER HITS PLAYER FOR 10 (Demage x 2)"
     });
     expect(wrapper.find("li").text()).toEqual(
       "MONSTER HITS PLAYER FOR 10 (Demage x 2)"

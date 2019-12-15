@@ -1,6 +1,6 @@
 <template>
   <li :class="dynamicCss">
-    {{ subject }} {{action}} {{ acusativus }} FOR {{ damage }} {{ critical }}
+    {{ msg }}
   </li>
 </template>
 
@@ -8,15 +8,11 @@
 export default {
   name: "ActionRow",
   props: {
-    subject: String,
-    acusativus: String,
-    action: { default: "HITS", type: String },
-    damage: Number,
-    critical: { default: "", type: String }
+    msg: { type: String, default: "" }
   },
   computed: {
     dynamicCss: function() {
-      return this.subject === "MONSTER" ? "red" : "blue";
+      return this.msg.split(" ")[0] === "MONSTER" ? "red" : "blue";
     }
   }
 };
