@@ -108,7 +108,7 @@ export default {
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
     heal: function() {
-      const healThisMuch = Math.round(this.randomGenerator() * 1.4);
+      const healThisMuch = Math.round(this.randomGenerator() * 1.2);
       if (this.playerHealth + healThisMuch > 100) this.playerHealth = 100;
       else this.playerHealth += healThisMuch;
       this.generalAttack(0, this.randomGenerator());
