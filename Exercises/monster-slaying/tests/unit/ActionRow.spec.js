@@ -42,4 +42,15 @@ describe("ActionRow.vue", () => {
       expect(wrapper.find("li").text()).toEqual("PLAYER HITS MONSTER FOR 10");
     }
   );
+  it("should write out the critical message", () => {
+    let wrapper = prepareWrapper({
+      subject: "MONSTER",
+      acusativus: "PLAYER",
+      damage: 10,
+      critical: "(Demage x 2)"
+    });
+    expect(wrapper.find("li").text()).toEqual(
+      "MONSTER HITS PLAYER FOR 10 (Demage x 2)"
+    );
+  });
 });

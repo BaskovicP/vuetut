@@ -1,6 +1,6 @@
 <template>
   <li :class="dynamicCss">
-    {{ subject }} HITS {{ acusativus }} FOR {{ damage }}
+    {{ subject }} HITS {{ acusativus }} FOR {{ damage }} {{critical}}
   </li>
 </template>
 
@@ -10,7 +10,8 @@ export default {
   props: {
     subject: String,
     acusativus: String,
-    damage: Number
+    damage: Number,
+    critical: { default: "", type: String }
   },
   computed: {
     dynamicCss: function() {
@@ -29,7 +30,7 @@ export default {
 }
 .blue {
   color: blue;
-  background-color: #E9E8FF;
+  background-color: #e9e8ff;
   padding-bottom: 3px;
 }
 </style>
