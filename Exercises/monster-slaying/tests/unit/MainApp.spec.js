@@ -115,10 +115,18 @@ describe("HealthComponent.vue", () => {
     });
     wrapper.find("#heal").trigger("click");
     expect(wrapper.find(HealthComponent).text()).toMatch("90");
+    expect(wrapper.find(ActionRow).text()).toMatch(
+      /PLAYER HEALS HIMSELF FOR [0-9][0-9]?/
+    );
 
     wrapper.find("#attack").trigger("click");
+    wrapper.find("#attack").trigger("click");
     wrapper.find("#heal").trigger("click");
-
-    expect(wrapper.find(HealthComponent).text()).not.toMatch("70");
+    expect(
+      wrapper
+        .findAll(ActionRow)
+        .at(1)
+        .text()
+    ).toMatch(/PLAYER HEALS HIMSELF FOR [0-9][0-9]?/);
   });
 });
