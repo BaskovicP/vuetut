@@ -99,19 +99,19 @@ export default {
           critical: critical.monster
         });
     },
-    randomGenerator: function() {
+    rgn: function() {
       return Math.floor(Math.random() * 10) + 1;
     },
     attack: function() {
-      let playerAttackDamage = this.randomGenerator();
-      let monsterAttackDamage = this.randomGenerator();
+      let playerAttackDamage = this.rgn();
+      let monsterAttackDamage = this.rgn();
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
     heal: function() {
-      const healThisMuch = Math.round(this.randomGenerator() * 1.2);
+      const healThisMuch = Math.round(this.rgn() * 1.2);
       if (this.playerHealth + healThisMuch > 100) this.playerHealth = 100;
       else this.playerHealth += healThisMuch;
-      this.generalAttack(0, this.randomGenerator());
+      this.generalAttack(0, this.rgn());
     },
     specialAttack: function() {
       /* 20% moster deals double damage to player
@@ -120,33 +120,32 @@ export default {
       20% that user deals 4 times the damade
       10% that monster does a critical and kills player
       10% that monster dies from players critical*/
-
       // TODO: refactor this repeating code
-      const randomGenerator = this.randomGenerator;
+      const rgn = this.rgn;
       const prefix = "--";
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
-        this.generalAttack(randomGenerator(), randomGenerator() * 2, {
+        this.generalAttack(rgn(), rgn() * 2, {
           monster: prefix + "2x damage"
         });
       } else if (roll === 3 || roll === 4) {
-        this.generalAttack(randomGenerator() * 2, randomGenerator(), {
+        this.generalAttack(rgn() * 2, rgn(), {
           player: prefix + "(x2 damage)"
         });
       } else if (roll === 5 || roll === 6) {
-        this.generalAttack(randomGenerator() * 3, randomGenerator(), {
+        this.generalAttack(rgn() * 3, rgn(), {
           player: prefix + "(x3)"
         });
       } else if (roll === 7 || roll === 8) {
-        this.generalAttack(randomGenerator() * 4, randomGenerator(), {
+        this.generalAttack(rgn() * 4, rgn(), {
           player: prefix + "(x4 damage)"
         });
       } else if (roll === 9) {
-        this.generalAttack(randomGenerator(), randomGenerator() + 100, {
+        this.generalAttack(rgn(), rgn() + 100, {
           monster: prefix + "(critical attack instant death)"
         });
       } else if (roll === 10) {
-        this.generalAttack(randomGenerator() + 200, randomGenerator(), {
+        this.generalAttack(rgn() + 200, rgn(), {
           player: prefix + "(critical attack instant death)"
         });
       }
