@@ -2,7 +2,6 @@ import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import HealthComponent from "@/components/HealthComponent.vue";
 import ActionRow from "@/components/ActionRow.vue";
-import { type } from "os";
 window.confirm = jest.fn(() => true);
 
 describe("HealthComponent.vue", () => {
@@ -97,8 +96,10 @@ describe("HealthComponent.vue", () => {
       gameOverAlert: gameOverAlertSpy,
       generalAttack: function() {
         this.monsterHealth = -1;
-      }
+      },
+      $nextTick: x => x()
     });
+
     wrapper.find("#attack").trigger("click");
     expect(gameOverAlertSpy).toBeCalledTimes(1);
     expect(gameOverAlertSpy).toBeCalledWith(" win");
@@ -141,6 +142,33 @@ describe("HealthComponent.vue", () => {
   });
   it("should test the generalAttack method", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
-    console.log(type(wrapper.generalAttack));
+    wrapper.vm.generalAttack(0, 20);
+
+    expect(wrapper.find(ActionRow).text()).toEqual(
+      "MONSTER HITS PLAYER FOR 20"
+    );
+    wrapper.vm.generalAttack(20, 0);
+
+    expect(
+      wrapper
+        .findAll(ActionRow)
+        .at(1)
+        .text()
+    ).toEqual("PLAYER HITS MONSTER FOR 20");
+
+    wrapper.vm.generalAttack(20, 20);
+
+    expect(
+      wrapper
+        .findAll(ActionRow)
+        .at(2)
+        .text()
+    ).toEqual("PLAYER HITS MONSTER FOR 20");
+    expect(
+      wrapper
+        .findAll(ActionRow)
+        .at(3)
+        .text()
+    ).toEqual("MONSTER HITS PLAYER FOR 20");
   });
 });
