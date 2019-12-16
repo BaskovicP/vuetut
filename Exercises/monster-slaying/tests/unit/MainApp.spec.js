@@ -40,6 +40,10 @@ describe("HealthComponent.vue", () => {
     expect(wrapper.find("#commands").exists()).toBe(false);
     expect(wrapper.find(".log").exists()).toBe(false);
   });
+  it("should not have the start-game button shown when the game is in session", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    expect(wrapper.findAll("#start-game").length).toEqual(0);
+  });
   it("should decrease monster and player health if you attack", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     wrapper.find("#attack").trigger("click");
@@ -76,12 +80,6 @@ describe("HealthComponent.vue", () => {
   it("should have no logs when starting the game", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
     expect(wrapper.find(ActionRow).exists()).toBe(false);
-  });
-  it("should clear the logs when starting a new game", () => {
-    let wrapper = prepareGameWrapper(prepareWrapper);
-    wrapper.find("#attack").trigger("click");
-    wrapper.find("#start-game").trigger("click");
-    expect(wrapper.findAll(ActionRow).length).toEqual(0);
   });
   it("should create a log insert when player attacks", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
