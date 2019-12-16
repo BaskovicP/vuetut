@@ -77,6 +77,10 @@ export default {
       monsterAttackDamage,
       critical = { player: "", monster: "" }
     ) {
+      critical = {
+        player: critical.player || "",
+        monster: critical.monster || ""
+      };
       this.monsterHealth -= playerAttackDamage;
       this.playerHealth -= monsterAttackDamage;
       if (playerAttackDamage != 0)
@@ -85,7 +89,7 @@ export default {
         });
       if (monsterAttackDamage != 0)
         this.logs.push({
-          msg: `MONSTER HITS PLAYER FOR ${monsterAttackDamage} ${critical.player}`
+          msg: `MONSTER HITS PLAYER FOR ${monsterAttackDamage} ${critical.monster}`
         });
     },
     rgn: function() {
