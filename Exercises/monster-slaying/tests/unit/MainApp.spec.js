@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import HealthComponent from "@/components/HealthComponent.vue";
 import ActionRow from "@/components/ActionRow.vue";
+import { type } from "os";
 window.confirm = jest.fn(() => true);
 
 describe("HealthComponent.vue", () => {
@@ -60,10 +61,17 @@ describe("HealthComponent.vue", () => {
   });
   it("should perform a special attack", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
+    jest.spyOn(Math, "random").mockImplementation(() => 0.3);
     wrapper.find("#special-attack").trigger("click");
     expect(wrapper.find(ActionRow).text()).toMatch(
       /PLAYER HITS MONSTER FOR [0-9][0-9]?(.*)?/
     );
+    expect(
+      wrapper
+        .findAll(ActionRow)
+        .at(1)
+        .text()
+    ).not.toMatch(/undefined$/);
   });
   it("should have no logs when starting the game", () => {
     let wrapper = prepareGameWrapper(prepareWrapper);
@@ -131,6 +139,10 @@ describe("HealthComponent.vue", () => {
         .findAll(ActionRow)
         .at(1)
         .text()
-    ).toMatch(/PLAYER HEALS HIMSELF FOR [0-9][0-9]?/);
+    ).toMatch(/PLAYER HEALS HIMSELF FOR [0-9][0-9]?$/);
+  });
+  it("should test the generalAttack method", () => {
+    let wrapper = prepareGameWrapper(prepareWrapper);
+    console.log(type(wrapper.generalAttack));
   });
 });
