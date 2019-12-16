@@ -56,10 +56,14 @@ export default {
   },
   watch: {
     playerHealth: function() {
-      if (this.playerHealth <= 0) this.gameOverAlert(" loose");
+      if (this.playerHealth <= 0) {
+        this.$nextTick(() => this.gameOverAlert(" loose"));
+      }
     },
     monsterHealth: function() {
-      if (this.monsterHealth <= 0) this.gameOverAlert(" win");
+      if (this.monsterHealth <= 0) {
+        this.$nextTick(() => this.gameOverAlert(" win"));
+      }
     }
   },
   methods: {
