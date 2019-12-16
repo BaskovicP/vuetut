@@ -4,7 +4,7 @@
       <HealthComponent name="YOU" :health="playerHealth" />
       <HealthComponent name="MONSTER" :health="monsterHealth" />
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="!newGameInSession">
       <div class="small-12 columns">
         <button id="start-game" @click="resetGame">START NEW GAME</button>
       </div>
