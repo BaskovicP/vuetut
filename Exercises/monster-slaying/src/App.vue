@@ -128,7 +128,7 @@ export default {
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
         this.generalAttack(rgn(), rgn() * 2, {
-          monster: prefix + "2x damage"
+          monster: prefix + "(2x damage)"
         });
       } else if (roll === 3 || roll === 4) {
         this.generalAttack(rgn() * 2, rgn(), {
