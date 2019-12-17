@@ -1,22 +1,22 @@
 <template>
   <div id="app">
     <section class="row">
-      <HealthComponent name="YOU" :health="playerHealth" />
-      <HealthComponent name="MONSTER" :health="monsterHealth" />
+      <HealthComponent :health="playerHealth" name="YOU"/>
+      <HealthComponent :health="monsterHealth" name="MONSTER" />
     </section>
-    <section class="row controls" v-if="!newGameInSession">
+    <section v-if="!newGameInSession" class="row controls">
       <div class="small-12 columns">
-        <button id="start-game" @click="resetGame">START NEW GAME</button>
+        <button id="start-game" @click='resetGame'>START NEW GAME</button>
       </div>
     </section>
-    <section v-if="newGameInSession" class="row controls">
-      <div class="small-12 columns" id="commands">
-        <button id="attack" @click="attack">ATTACK</button>
-        <button id="special-attack" @click="specialAttack">
+    <section v-else class="row controls">
+      <div id="commands" class="small-12 columns">
+        <button @click="attack" id="attack">ATTACK</button>
+        <button @click="specialAttack" id="special-attack">
           SPECIAL ATTACK
         </button>
-        <button id="heal" @click="heal">HEAL</button>
-        <button id="give-up" @click="giveUp">GIVE UP</button>
+        <button @click="heal" id="heal">HEAL</button>
+        <button @click="giveUp" id="give-up">GIVE UP</button>
       </div>
     </section>
     <section v-if="showLogs" class="row log">
@@ -32,80 +32,55 @@
 </template>
 
 <script>
-import ActionRow from "./components/ActionRow.vue";
-import HealthComponent from "./components/HealthComponent.vue";
+import ActionRow from "./components/ActionRow";
+import HealthComponent from "./components/HealthComponent";
+
+const rgn = () => Math.floor(Math.random() * 10) + 1
 
 export default {
-  name: "app",
-  components: {
-    ActionRow,
-    HealthComponent
-  },
-  data: function() {
-    return {
-      playerHealth: 100,
-      monsterHealth: 100,
-      newGameInSession: false,
-      logs: []
-    };
-  },
+  name: 'app',
+  data: () => ({
+    playerHealth: 100,
+    monsterHealth: 100,
+    newGameInSession: false,
+    logs: []
+  }),
   computed: {
-    showLogs() {
-      return this.newGameInSession && this.logs.length > 0;
-    }
-  },
-  watch: {
-    playerHealth() {
-      if (this.playerHealth <= 0) {
-        this.$nextTick(() => this.gameOverAlert(" loose"));
-      }
-    },
-    monsterHealth() {
-      if (this.monsterHealth <= 0) {
-        this.$nextTick(() => this.gameOverAlert(" win"));
-      }
-    }
+    showLogs: vm => vm.newGameInSession && vm.logs.length > 0
   },
   methods: {
     resetGame() {
-      (this.playerHealth = 100),
-        (this.monsterHealth = 100),
-        (this.newGameInSession = true),
-        (this.logs = []);
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.newGameInSession = true;
+      this.logs = [];
     },
     giveUp() {
       this.newGameInSession = false;
     },
-    generalAttack(
-      playerAttackDamage,
-      monsterAttackDamage,
-      critical = { player: "", monster: "" }
-    ) {
-      critical = {
-        player: critical.player || "",
-        monster: critical.monster || ""
-      };
+    generalAttack(playerAttackDamage, monsterAttackDamage, critical={}) {
+      critical.player = critical.player || '';
+      critical.monster = critical.monster || '';
       this.monsterHealth -= playerAttackDamage;
       this.playerHealth -= monsterAttackDamage;
-      if (playerAttackDamage != 0)
-        this.logs.push({
-          msg: `PLAYER HITS MONSTER FOR ${playerAttackDamage} ${critical.player}`
-        });
-      if (monsterAttackDamage != 0)
-        this.logs.push({
-          msg: `MONSTER HITS PLAYER FOR ${monsterAttackDamage} ${critical.monster}`
-        });
+      if (playerAttackDamage != 0) this.attackMessage(playerAttackDamage, critical,true);
+      if (monsterAttackDamage != 0) this.attackMessage(monsterAttackDamage, critical);
     },
-    rgn() {
-      return Math.floor(Math.random() * 10) + 1;
+    attackMessage(attackDamage, critical,playerMove = false) {
+      const { player,monster } = critical;
+      if(player==='' && monster==='') critical=''
+      else critical = player ? player : monster;
+      const message = !playerMove? 'MONSTER HITS PLAYER FOR': 'PLAYER HITS MONSTER FOR';
+      this.logs.push(
+        { msg: `${message} ${attackDamage} ${critical}`});
     },
     attack() {
-      let playerAttackDamage = this.rgn();
-      let monsterAttackDamage = this.rgn();
+      let playerAttackDamage = rgn();
+      let monsterAttackDamage = rgn();
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
     heal() {
-      const healThisMuch = Math.round(this.rgn() * 1.2);
+      const healThisMuch = Math.round(rgn() * 1.2);
       if (this.playerHealth + healThisMuch > 100) {
         this.logs.push({
           msg: `PLAYER HEALS HIMSELF FOR ${100 - this.playerHealth}`
@@ -117,7 +92,7 @@ export default {
           msg: `PLAYER HEALS HIMSELF FOR ${healThisMuch}`
         });
       }
-      this.generalAttack(0, this.rgn());
+      this.generalAttack(0, rgn());
     },
     specialAttack() {
       /* 20% moster deals double damage to player
@@ -127,8 +102,7 @@ export default {
       10% that monster does a critical and kills player
       10% that monster dies from players critical*/
       // TODO: refactor this repeating code
-      const rgn = this.rgn;
-      const prefix = "  ";
+      const prefix = ' ';
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
         this.generalAttack(rgn(), rgn() * 2, {
@@ -157,11 +131,19 @@ export default {
       }
     },
     gameOverAlert(result) {
-      if (confirm("You" + result + " do you want to start a new game?")) {
-        this.resetGame();
-      } else null;
+      const modal = confirm("You" + result + " do you want to start a new game?");
+      if (modal) this.resetGame();
+    },
+  },
+  watch: {
+    playerHealth(value) {
+      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' loose'));
+    },
+    monsterHealth(value) {
+      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' win'));
     }
-  }
+  },
+  components: { ActionRow, HealthComponent }
 };
 </script>
 

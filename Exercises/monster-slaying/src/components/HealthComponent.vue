@@ -4,10 +4,9 @@
     <div class="healthbar">
       <div
         :id="name"
-        class="healthbar text-center"
-        style="background-color: green; margin: 0; color: white;"
         :style="{ width: health + '%' }"
-      >
+        class="healthbar text-center"
+        style="background-color: green; margin: 0; color: white;">
         {{ health }}
       </div>
     </div>
@@ -16,9 +15,9 @@
 
 <script>
 export default {
-  name: "HealthComponent",
+  name: 'health-component',
   props: {
-    name: String,
+    name: { type: String, required: true },
     health: { type: Number, default: 100 }
   }
 };

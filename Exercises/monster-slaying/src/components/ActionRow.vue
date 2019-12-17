@@ -1,24 +1,19 @@
 <template>
-  <li :class="dynamicCss">
-    {{ msg }}
-  </li>
+  <li :class="dynamicCss">{{ msg }}</li>
 </template>
 
 <script>
 export default {
-  name: "ActionRow",
+  name: "action-row",
   props: {
-    msg: { type: String, default: "" }
+    msg: { type: String, default: '' }
   },
   computed: {
-    dynamicCss: function() {
-      return this.msg.split(" ")[0] === "MONSTER" ? "red" : "blue";
-    }
+    dynamicCss: vm => vm.msg.split(' ')[0] === "MONSTER" ? 'red' : 'blue'
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .red {
   color: red;
