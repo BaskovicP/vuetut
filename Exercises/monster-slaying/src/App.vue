@@ -50,33 +50,33 @@ export default {
     };
   },
   computed: {
-    showLogs: function() {
+    showLogs() {
       return this.newGameInSession && this.logs.length > 0;
     }
   },
   watch: {
-    playerHealth: function() {
+    playerHealth() {
       if (this.playerHealth <= 0) {
         this.$nextTick(() => this.gameOverAlert(" loose"));
       }
     },
-    monsterHealth: function() {
+    monsterHealth() {
       if (this.monsterHealth <= 0) {
         this.$nextTick(() => this.gameOverAlert(" win"));
       }
     }
   },
   methods: {
-    resetGame: function() {
+    resetGame() {
       (this.playerHealth = 100),
         (this.monsterHealth = 100),
         (this.newGameInSession = true),
         (this.logs = []);
     },
-    giveUp: function() {
+    giveUp() {
       this.newGameInSession = false;
     },
-    generalAttack: function(
+    generalAttack(
       playerAttackDamage,
       monsterAttackDamage,
       critical = { player: "", monster: "" }
@@ -96,15 +96,15 @@ export default {
           msg: `MONSTER HITS PLAYER FOR ${monsterAttackDamage} ${critical.monster}`
         });
     },
-    rgn: function() {
+    rgn() {
       return Math.floor(Math.random() * 10) + 1;
     },
-    attack: function() {
+    attack() {
       let playerAttackDamage = this.rgn();
       let monsterAttackDamage = this.rgn();
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
-    heal: function() {
+    heal() {
       const healThisMuch = Math.round(this.rgn() * 1.2);
       if (this.playerHealth + healThisMuch > 100) {
         this.logs.push({
@@ -119,7 +119,7 @@ export default {
       }
       this.generalAttack(0, this.rgn());
     },
-    specialAttack: function() {
+    specialAttack() {
       /* 20% moster deals double damage to player
       20% that user deals double damage to monster
       20% that user deals triple demage
@@ -156,7 +156,7 @@ export default {
         });
       }
     },
-    gameOverAlert: function(result) {
+    gameOverAlert(result) {
       if (confirm("You" + result + " do you want to start a new game?")) {
         this.resetGame();
       } else null;
