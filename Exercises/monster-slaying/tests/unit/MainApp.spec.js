@@ -65,7 +65,7 @@ describe('HealthComponent.vue', () => {
   });
   it('should perform a special attack', () => {
     const wrapper = prepareGameWrapper(prepareWrapper);
-    jest.spyOn(Math, 'random').mockImplementation(() => 0.3);
+    jest.spyOn(Math, 'random').mockImplementation(() => 0.5);
     wrapper.find('#special-attack').trigger('click');
     expect(wrapper.find(ActionRow).text()).toMatch(
       /PLAYER HITS MONSTER FOR [0-9][0-9]?(.*)?/

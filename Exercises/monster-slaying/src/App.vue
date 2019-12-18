@@ -36,6 +36,16 @@ import ActionRow from './components/ActionRow';
 import HealthComponent from './components/HealthComponent';
 
 const rng = () => Math.floor(Math.random() * 10) + 1;
+const dice = (roll, data, callBack) => {
+  let el;
+  for (let i = 0; i < data.length; i++) {
+    el = data[i];
+    if (el.percent >= rng() * 10) {
+      callBack(el.arg[0](rng()), el.arg[1](rng()), el.msg);
+      break;
+    }
+  }
+};
 
 export default {
   name: 'app',
@@ -96,40 +106,18 @@ export default {
       this.generalAttack(0, rng());
     },
     specialAttack() {
-      /* 20% moster deals double damage to player
-      20% that user deals double damage to monster
-      20% that user deals triple demage
-      20% that user deals 4 times the damade
-      10% that monster does a critical and kills player
-      10% that monster dies from players critical */
-      // TODO: refactor this repeating code
-      const prefix = ' ';
-      const roll = Math.round(Math.random() * 10);
-      if (roll === 1 || roll === 2) {
-        this.generalAttack(rng(), rng() * 2, {
-          monster: prefix + '(2x damage)'
-        });
-      } else if (roll === 3 || roll === 4) {
-        this.generalAttack(rng() * 2, rng(), {
-          player: prefix + '(x2 damage)'
-        });
-      } else if (roll === 5 || roll === 6) {
-        this.generalAttack(rng() * 3, rng(), {
-          player: prefix + '(x3)'
-        });
-      } else if (roll === 7 || roll === 8) {
-        this.generalAttack(rng() * 4, rng(), {
-          player: prefix + '(x4 damage)'
-        });
-      } else if (roll === 9) {
-        this.generalAttack(rng(), rng() + 100, {
-          monster: prefix + '(critical attack instant death)'
-        });
-      } else if (roll === 10) {
-        this.generalAttack(rng() + 200, rng(), {
-          player: prefix + '(critical attack instant death)'
-        });
-      }
+      const roll = Math.round(Math.random() * 10) * 10;
+      dice(
+        roll,
+        [{ percent: 20, arg: [x => x, x => x * 2], msg: { monster: '(x2damage)' } },
+          { percent: 20, arg: [x => x * 2, x => x], msg: { player: '(x3damage)' } },
+          { percent: 20, arg: [x => x * 3, x => x], msg: { player: '(x4damage)' } },
+          { percent: 20, arg: [x => x * 4, x => x], msg: { player: '(x2damage)' } },
+          { percent: 10, arg: [x => x, x => x + 100], msg: { monster: '(instant death)' } },
+          { percent: 10, arg: [x => x + 100, x => x], msg: { player: '(instant death)' } },
+          { percent: 100, arg: [x => x, x => x] }
+        ],
+        this.generalAttack);
     },
     gameOverAlert(result) {
       const modal = confirm(
