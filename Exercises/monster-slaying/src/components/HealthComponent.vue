@@ -6,7 +6,8 @@
         :id="name"
         :style="{ width: health + '%' }"
         class="healthbar text-center"
-        style="background-color: green; margin: 0; color: white;">
+        style="background-color: green; margin: 0; color: white;"
+      >
         {{ health }}
       </div>
     </div>
@@ -15,7 +16,7 @@
 
 <script>
 export default {
-  name: 'health-component',
+  name: "health-component",
   props: {
     name: { type: String, required: true },
     health: { type: Number, default: 100 }

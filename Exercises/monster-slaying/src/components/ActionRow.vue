@@ -6,10 +6,10 @@
 export default {
   name: "action-row",
   props: {
-    msg: { type: String, default: '' }
+    msg: { type: String, default: "" }
   },
   computed: {
-    dynamicCss: vm => vm.msg.split(' ')[0] === "MONSTER" ? 'red' : 'blue'
+    dynamicCss: vm => (vm.msg.split(" ")[0] === "MONSTER" ? "red" : "blue")
   }
 };
 </script>

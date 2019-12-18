@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <section class="row">
-      <HealthComponent :health="playerHealth" name="YOU"/>
+      <HealthComponent :health="playerHealth" name="YOU" />
       <HealthComponent :health="monsterHealth" name="MONSTER" />
     </section>
     <section v-if="!newGameInSession" class="row controls">
       <div class="small-12 columns">
-        <button id="start-game" @click='resetGame'>START NEW GAME</button>
+        <button id="start-game" @click="resetGame">START NEW GAME</button>
       </div>
     </section>
     <section v-else class="row controls">
@@ -35,10 +35,10 @@
 import ActionRow from "./components/ActionRow";
 import HealthComponent from "./components/HealthComponent";
 
-const rng = () => Math.floor(Math.random() * 10) + 1
+const rng = () => Math.floor(Math.random() * 10) + 1;
 
 export default {
-  name: 'app',
+  name: "app",
   data: () => ({
     playerHealth: 100,
     monsterHealth: 100,
@@ -58,21 +58,24 @@ export default {
     giveUp() {
       this.newGameInSession = false;
     },
-    generalAttack(playerAttackDamage, monsterAttackDamage, critical={}) {
-      critical.player = critical.player || '';
-      critical.monster = critical.monster || '';
+    generalAttack(playerAttackDamage, monsterAttackDamage, critical = {}) {
+      critical.player = critical.player || "";
+      critical.monster = critical.monster || "";
       this.monsterHealth -= playerAttackDamage;
       this.playerHealth -= monsterAttackDamage;
-      if (playerAttackDamage != 0) this.attackMessage(playerAttackDamage, critical,true);
-      if (monsterAttackDamage != 0) this.attackMessage(monsterAttackDamage, critical);
+      if (playerAttackDamage != 0)
+        this.attackMessage(playerAttackDamage, critical, true);
+      if (monsterAttackDamage != 0)
+        this.attackMessage(monsterAttackDamage, critical);
     },
-    attackMessage(attackDamage, critical,playerMove = false) {
-      const { player,monster } = critical;
-      if(player==='' && monster==='') critical=''
+    attackMessage(attackDamage, critical, playerMove = false) {
+      const { player, monster } = critical;
+      if (player === "" && monster === "") critical = "";
       else critical = player ? player : monster;
-      const message = !playerMove? 'MONSTER HITS PLAYER FOR': 'PLAYER HITS MONSTER FOR';
-      this.logs.push(
-        { msg: `${message} ${attackDamage} ${critical}`});
+      const message = !playerMove
+        ? "MONSTER HITS PLAYER FOR"
+        : "PLAYER HITS MONSTER FOR";
+      this.logs.push({ msg: `${message} ${attackDamage} ${critical}` });
     },
     attack() {
       let playerAttackDamage = rng();
@@ -102,7 +105,7 @@ export default {
       10% that monster does a critical and kills player
       10% that monster dies from players critical*/
       // TODO: refactor this repeating code
-      const prefix = ' ';
+      const prefix = " ";
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
         this.generalAttack(rng(), rng() * 2, {
@@ -131,16 +134,18 @@ export default {
       }
     },
     gameOverAlert(result) {
-      const modal = confirm("You" + result + " do you want to start a new game?");
+      const modal = confirm(
+        "You" + result + " do you want to start a new game?"
+      );
       if (modal) this.resetGame();
-    },
+    }
   },
   watch: {
     playerHealth(value) {
-      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' loose'));
+      if (value <= 0) this.$nextTick(() => this.gameOverAlert(" loose"));
     },
     monsterHealth(value) {
-      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' win'));
+      if (value <= 0) this.$nextTick(() => this.gameOverAlert(" win"));
     }
   },
   components: { ActionRow, HealthComponent }
