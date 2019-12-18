@@ -35,7 +35,7 @@
 import ActionRow from "./components/ActionRow";
 import HealthComponent from "./components/HealthComponent";
 
-const rgn = () => Math.floor(Math.random() * 10) + 1
+const rng = () => Math.floor(Math.random() * 10) + 1
 
 export default {
   name: 'app',
@@ -75,12 +75,12 @@ export default {
         { msg: `${message} ${attackDamage} ${critical}`});
     },
     attack() {
-      let playerAttackDamage = rgn();
-      let monsterAttackDamage = rgn();
+      let playerAttackDamage = rng();
+      let monsterAttackDamage = rng();
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
     heal() {
-      const healThisMuch = Math.round(rgn() * 1.2);
+      const healThisMuch = Math.round(rng() * 1.2);
       if (this.playerHealth + healThisMuch > 100) {
         this.logs.push({
           msg: `PLAYER HEALS HIMSELF FOR ${100 - this.playerHealth}`
@@ -92,7 +92,7 @@ export default {
           msg: `PLAYER HEALS HIMSELF FOR ${healThisMuch}`
         });
       }
-      this.generalAttack(0, rgn());
+      this.generalAttack(0, rng());
     },
     specialAttack() {
       /* 20% moster deals double damage to player
@@ -105,27 +105,27 @@ export default {
       const prefix = ' ';
       const roll = Math.round(Math.random() * 10);
       if (roll === 1 || roll === 2) {
-        this.generalAttack(rgn(), rgn() * 2, {
+        this.generalAttack(rng(), rng() * 2, {
           monster: prefix + "(2x damage)"
         });
       } else if (roll === 3 || roll === 4) {
-        this.generalAttack(rgn() * 2, rgn(), {
+        this.generalAttack(rng() * 2, rng(), {
           player: prefix + "(x2 damage)"
         });
       } else if (roll === 5 || roll === 6) {
-        this.generalAttack(rgn() * 3, rgn(), {
+        this.generalAttack(rng() * 3, rng(), {
           player: prefix + "(x3)"
         });
       } else if (roll === 7 || roll === 8) {
-        this.generalAttack(rgn() * 4, rgn(), {
+        this.generalAttack(rng() * 4, rng(), {
           player: prefix + "(x4 damage)"
         });
       } else if (roll === 9) {
-        this.generalAttack(rgn(), rgn() + 100, {
+        this.generalAttack(rng(), rng() + 100, {
           monster: prefix + "(critical attack instant death)"
         });
       } else if (roll === 10) {
-        this.generalAttack(rgn() + 200, rgn(), {
+        this.generalAttack(rng() + 200, rng(), {
           player: prefix + "(critical attack instant death)"
         });
       }
