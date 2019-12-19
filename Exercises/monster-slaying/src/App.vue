@@ -118,8 +118,8 @@ export default {
           { percent: 20, arg: [x => x * 2, x => x], msg: { player: '(x3damage)' } },
           { percent: 20, arg: [x => x * 3, x => x], msg: { player: '(x4damage)' } },
           { percent: 20, arg: [x => x * 4, x => x], msg: { player: '(x2damage)' } },
-          { percent: 10, arg: [x => x, x => x + 100], msg: { monster: '(instant death)' } },
-          { percent: 10, arg: [x => x + 100, x => x], msg: { player: '(instant death)' } },
+          { percent: 10, arg: [x => x, x => x + 100], msg: { monster: '(death)' } },
+          { percent: 10, arg: [x => x + 100, x => x], msg: { player: '(death)' } },
           { percent: 100, arg: [x => x, x => x] }
         ],
         this.generalAttack);
