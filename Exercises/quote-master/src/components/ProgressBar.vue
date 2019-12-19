@@ -10,7 +10,7 @@
           style="width: 25%;"
           :aria-valuenow="numQuotes"
           aria-valuemin="0"
-          aria-valuemax="10">
+          :aria-valuemax="maxQuotes">
           {{ numQuotes }}/10
         </div>
       </div>
@@ -21,8 +21,8 @@
 <script>
 export default {
   props: {
-    numQuotes: { type: Number, default: 0 },
-    maxQuotes: { type: Number, default: 0 }
+    numQuotes: { type: Number, required: true },
+    maxQuotes: { type: Number, default: 10 }
   }
 };
 </script>

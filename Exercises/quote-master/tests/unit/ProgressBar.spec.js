@@ -10,10 +10,11 @@ describe('HelloWorld.vue', () => {
   };
   let wrapper;
   beforeEach(() => {
-    wrapper = prepareWrapper();
+    wrapper = prepareWrapper({
+      numQuotes: 0
+    });
   });
   it('will compile', () => {
-    const wrapper = prepareWrapper();
     expect(wrapper.isVueInstance()).toBe(true);
   });
   it('should contain a heading with text Quotes Added', () => {
