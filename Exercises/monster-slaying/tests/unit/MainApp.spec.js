@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils';
 
 window.confirm = jest.fn(() => true);
 
-describe('HealthComponent.vue', () => {
+describe.only('MainAPP component', () => {
   const prepareWrapper = props => {
     return mount(App, {
       propsData: props

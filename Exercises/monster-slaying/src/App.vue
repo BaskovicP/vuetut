@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <section class="row">
-      <HealthComponent :health="playerHealth" name="YOU" />
-      <HealthComponent :health="monsterHealth" name="MONSTER" />
+      <health-component :health="playerHealth" name="YOU" />
+      <health-component :health="monsterHealth" name="MONSTER" />
     </section>
     <section v-if="!newGameInSession" class="row controls">
       <div class="small-12 columns">
@@ -23,7 +23,7 @@
       <div class="small-12 columns">
         <ul>
           <section v-for="(logItem, index) in logs" :key="'action' + index">
-            <ActionRow :msg="logItem.msg" />
+            <action-row :msg="logItem.msg" />
           </section>
         </ul>
       </div>
@@ -145,7 +145,7 @@ export default {
       }
     }
   },
-  components: { ActionRow, HealthComponent }
+  components: { 'action-row': ActionRow, 'health-component': HealthComponent }
 };
 </script>
 
