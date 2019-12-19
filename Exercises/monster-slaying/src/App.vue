@@ -53,6 +53,7 @@ export default {
     playerHealth: 100,
     monsterHealth: 100,
     newGameInSession: false,
+    deathHasOccured: false,
     logs: []
   }),
   computed: {
@@ -64,6 +65,7 @@ export default {
       this.monsterHealth = 100;
       this.newGameInSession = true;
       this.logs = [];
+      this.deathHasOccured = false;
     },
     giveUp() {
       this.newGameInSession = false;
@@ -86,11 +88,13 @@ export default {
       this.logs.push({ msg: `${message} ${attackDamage} ${critical}` });
     },
     attack() {
+      if (this.deathHasOccured) return;
       const playerAttackDamage = rng();
       const monsterAttackDamage = rng();
       this.generalAttack(playerAttackDamage, monsterAttackDamage);
     },
     heal() {
+      if (this.deathHasOccured) return;
       const healThisMuch = Math.round(rng() * 1.2);
       if (this.playerHealth + healThisMuch > 100) {
         this.logs.push({
@@ -106,6 +110,7 @@ export default {
       this.generalAttack(0, rng());
     },
     specialAttack() {
+      if (this.deathHasOccured) return;
       const roll = Math.round(Math.random() * 10) * 10;
       dice(
         roll,
@@ -128,10 +133,16 @@ export default {
   },
   watch: {
     playerHealth(value) {
-      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' loose'));
+      if (value <= 0) {
+        this.deathHasOccured = true;
+        this.$nextTick(() => this.gameOverAlert(' loose'));
+      }
     },
     monsterHealth(value) {
-      if (value <= 0) this.$nextTick(() => this.gameOverAlert(' win'));
+      if (value <= 0) {
+        this.deathHasOccured = true;
+        this.$nextTick(() => this.gameOverAlert(' win'));
+      }
     }
   },
   components: { ActionRow, HealthComponent }
@@ -139,8 +150,4 @@ export default {
 </script>
 
 <style>
-.row {
-  font-size: 0.5rem;
-  width: 100%;
-}
 </style>

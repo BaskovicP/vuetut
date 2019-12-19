@@ -92,7 +92,7 @@ describe('HealthComponent.vue', () => {
   it('should end the game if player or monster health reaches <=0', () => {
     const wrapper = prepareGameWrapper(prepareWrapper);
 
-    const gameOverAlertSpy = jest.fn();
+    const gameOverAlertSpy = jest.spyOn(wrapper.vm, 'gameOverAlert');
     wrapper.setMethods({
       gameOverAlert: gameOverAlertSpy,
       generalAttack: function () {
@@ -105,15 +105,17 @@ describe('HealthComponent.vue', () => {
     expect(gameOverAlertSpy).toBeCalledTimes(1);
     expect(gameOverAlertSpy).toBeCalledWith(' win');
 
+    // wrapper.vm.deathHasOccured = false;
     expect(wrapper.find(ActionRow).exists()).toBe(false);
 
     wrapper.setMethods({
       generalAttack: function () {
         this.playerHealth = -1;
-      }
+      },
+      $nextTick: x => x()
     });
-    wrapper.find('#attack').trigger('click');
 
+    wrapper.find('#attack').trigger('click');
     expect(gameOverAlertSpy).toBeCalledTimes(2);
     expect(gameOverAlertSpy).toBeCalledWith(' loose');
   });
