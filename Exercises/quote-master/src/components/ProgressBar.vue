@@ -7,7 +7,7 @@
           id="progressBar"
           class="progress-bar"
           role="progressbar"
-          style="width: 25%;"
+          :style="{'width':numQuotes*10+'%'}"
           :aria-valuenow="numQuotes"
           aria-valuemin="0"
           :aria-valuemax="maxQuotes">

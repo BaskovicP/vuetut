@@ -23,7 +23,7 @@ describe('HelloWorld.vue', () => {
   it('should contain a progressbar with 0/10 and 4/10 text', () => {
     wrapper = prepareWrapper({ numQuotes: 0 });
     expect(wrapper.find(idProgress).text()).toBe('0/10');
-    wrapper = prepareWrapper({ numQuotes: 4 });
+    wrapper.setProps({ numQuotes: 4 });
     expect(wrapper.find(idProgress).text()).toBe('4/10');
     expect(wrapper.find(idProgress).attributes()).toEqual(
       {
@@ -33,7 +33,7 @@ describe('HelloWorld.vue', () => {
         class: 'progress-bar',
         id: 'progressBar',
         role: 'progressbar',
-        style: 'width: 25%;'
+        style: 'width: 40%;'
       });
   });
 });
