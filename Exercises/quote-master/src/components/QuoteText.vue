@@ -3,7 +3,7 @@
     <div class="column-xl-8">
       <div class="row">
         <div class="column-xl-8">
-          <h4 id="textBoxHeading">Quote</h4>
+          <h4 id="text-box-heading">Quote</h4>
         </div>
       </div>
       <div class="row">
@@ -13,6 +13,11 @@
             name=""
             cols="80"
             rows="10"></textarea>
+        </div>
+      </div>
+      <div id="button-row" class="row">
+        <div class="column-xl-2">
+          <button class="btn btn-primary">Add Quote</button>
         </div>
       </div>
     </div>
@@ -34,6 +39,9 @@ export default {
  justify-content: center
 }
 #insertQuote {
+ justify-content: center
+}
+#button-row {
  justify-content: center
 }
 </style>
