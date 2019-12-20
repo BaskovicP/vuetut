@@ -15,7 +15,11 @@ describe('HelloWorld.vue', () => {
     expect(wrapper.isVueInstance()).toBe(true);
   });
   it('should have all the necessary elements', () => {
-    expect(wrapper.find('#textBoxHeading').text()).toBe('Quote');
+    expect(wrapper.find('#text-box-heading').text()).toBe('Quote');
     expect(wrapper.findAll('textarea').length).toBe(1);
+    expect(wrapper.contains('button')).toBe(true);
+  });
+  it('should have Add Quote in the button', () => {
+    expect(wrapper.find('button').text()).toBe('Add Quote');
   });
 });
