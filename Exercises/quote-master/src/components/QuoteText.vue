@@ -9,15 +9,22 @@
       <div class="row">
         <div class="column-xl-8">
           <textarea
+            v-model="enteredText"
             id="insertQuote"
             name=""
             cols="80"
-            rows="10"></textarea>
+            rows="10"
+            placeholder="Please enter quote text here"></textarea>
         </div>
       </div>
       <div id="button-row" class="row">
         <div class="column-xl-2">
-          <button class="btn btn-primary">Add Quote</button>
+          <button
+            @click="deleteAndSend(enteredText);"
+            id="add-quote-button"
+            class="btn btn-primary">
+            Add Quote
+          </button>
         </div>
       </div>
     </div>
@@ -26,6 +33,19 @@
 
 <script>
 export default {
+  props: {
+    addNewQuote: { type: Function, required: true }
+  },
+  data: () => ({
+    enteredText: ''
+
+  }),
+  methods: {
+    deleteAndSend(value) {
+      this.enteredText = '';
+      this.addNewQuote(value);
+    }
+  }
 
 };
 </script>
