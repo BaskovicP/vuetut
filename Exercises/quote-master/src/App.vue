@@ -1,25 +1,43 @@
 <template>
   <div>
     <progress-bar id="joke" :num-quotes="numQuotes" />
-    <quote-text />
+    <quote-text :add-new-quote="addNewQuote" />
+    <div class="quotes-container row">
+      <single-quote v-for="quote in quotes" :key="'quotes-'+quote" style="margin-left:2rem;">
+        {{ quote }}
+      </single-quote>
+    </div>
   </div>
 </template>
 
 <script>
+
 import ProgressBar from './components/ProgressBar';
 import QuoteText from './components/QuoteText';
+import SingleQuote from './components/SingleQuote';
 export default {
   name: 'app',
   data: () => ({
-    numQuotes: 0
+    numQuotes: 0,
+    quotes: []
   }),
+  methods: {
+    addNewQuote(value) {
+      this.quotes.push(value);
+    }
+  },
   components: {
     'progress-bar': ProgressBar,
-    'quote-text': QuoteText
+    'quote-text': QuoteText,
+    'single-quote': SingleQuote
   }
 };
 </script>
 
-<style>
+<style scoped>
+.quotes-container {
+  margin: 2rem;
 
+  justify-content: center;
+}
 </style>
