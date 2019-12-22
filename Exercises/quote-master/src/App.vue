@@ -24,6 +24,7 @@ export default {
   methods: {
     addNewQuote(value) {
       this.quotes.push(value);
+      this.numQuotes++;
     }
   },
   components: {
