@@ -1,8 +1,10 @@
 import { mount } from '@vue/test-utils';
 import QuoteText from '@/components/QuoteText';
 
-describe('HelloWorld.vue', () => {
-  const prepareWrapper = props => {
+describe.only('QuoteText.vue', () => {
+  const addNewQuotespy = jest.fn();
+
+  const prepareWrapper = (props = { addNewQuote: addNewQuotespy }) => {
     return mount(QuoteText, {
       propsData: props
     });
@@ -20,6 +22,9 @@ describe('HelloWorld.vue', () => {
     expect(wrapper.contains('button')).toBe(true);
   });
   it('should have Add Quote in the button', () => {
-    expect(wrapper.find('button').text()).toBe('Add Quote');
+    const button = wrapper.find('button');
+    expect(button.text()).toBe('Add Quote');
+    button.trigger('click');
+    expect(addNewQuotespy).toBeCalled();
   });
 });
