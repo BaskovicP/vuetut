@@ -22,9 +22,11 @@ export default {
     quotes: []
   }),
   methods: {
-    addNewQuote(value) {
-      this.quotes.push(value);
-      this.numQuotes++;
+    addNewQuote(value, numChars) {
+      if (numChars >= 0) {
+        this.quotes.push(value);
+        this.numQuotes++;
+      }
     }
   },
   components: {
