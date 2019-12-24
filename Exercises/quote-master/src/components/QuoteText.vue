@@ -42,8 +42,8 @@ export default {
   }),
   methods: {
     deleteAndSend(value) {
+      this.addNewQuote(value, this.enteredText.length);
       this.enteredText = '';
-      this.addNewQuote(value);
     }
   }
 

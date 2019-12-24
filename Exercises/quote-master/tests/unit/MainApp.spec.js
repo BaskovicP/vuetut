@@ -23,10 +23,17 @@ describe('MainApp', () => {
   });
   it('should add a new quote after clicking on the button', () => {
     wrapper = mount(MainApp);
+    wrapper.find('#insertQuote').setValue('heheh');
+    console.log(wrapper.html());
     wrapper.find('#add-quote-button').trigger('click');
+
     expect(wrapper.contains(SingleQuote)).toBe(true);
   });
   it('should have no quotes when quotes data is empty', () => {
+    expect(wrapper.contains(SingleQuote)).toBe(false);
+  });
+  it('should not add a new quote if there is nothing in the text area', () => {
+    wrapper.find('#add-quote-button').trigger('click');
     expect(wrapper.contains(SingleQuote)).toBe(false);
   });
 });
