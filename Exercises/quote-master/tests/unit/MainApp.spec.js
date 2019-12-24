@@ -24,7 +24,6 @@ describe('MainApp', () => {
   it('should add a new quote after clicking on the button', () => {
     wrapper = mount(MainApp);
     wrapper.find('#insertQuote').setValue('heheh');
-    console.log(wrapper.html());
     wrapper.find('#add-quote-button').trigger('click');
 
     expect(wrapper.contains(SingleQuote)).toBe(true);
