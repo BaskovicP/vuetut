@@ -35,4 +35,13 @@ describe('MainApp', () => {
     wrapper.find('#add-quote-button').trigger('click');
     expect(wrapper.contains(SingleQuote)).toBe(false);
   });
+  it('should allow only 10 quotes max', () => {
+    wrapper = mount(MainApp);
+    for (let i = 0; i < 12; i++) {
+      wrapper.find('#insertQuote').setValue('heheh' + Math.random());
+      wrapper.find('#add-quote-button').trigger('click');
+    }
+
+    expect(wrapper.findAll(SingleQuote).length).toBe(10);
+  });
 });

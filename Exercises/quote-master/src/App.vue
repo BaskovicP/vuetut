@@ -23,7 +23,7 @@ export default {
   }),
   methods: {
     addNewQuote(value, numChars) {
-      if (numChars > 0) {
+      if (numChars > 0 && this.numQuotes < 10) {
         this.quotes.push(value);
         this.numQuotes++;
       }
