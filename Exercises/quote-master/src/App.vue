@@ -9,6 +9,9 @@
         {{ quote.msg }}
       </single-quote>
     </div>
+    <div class="alert alert-info">
+      <strong>Info!</strong> Clicking on the single quote deleates that quote.
+    </div>
   </div>
 </template>
 
