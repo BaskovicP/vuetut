@@ -3,8 +3,10 @@
     <progress-bar id="joke" :num-quotes="numQuotes" />
     <quote-text :add-new-quote="addNewQuote" />
     <div class="quotes-container row">
-      <single-quote v-for="quote in quotes" :key="'quotes-'+quote" style="margin-left:2rem;">
-        {{ quote }}
+      <single-quote
+        v-for="quote in quotes" :key="'quotes-'+ quote.msg" @delete="deleteElement" :id="quote.id"
+        style="margin-left:2rem;">
+        {{ quote.msg }}
       </single-quote>
     </div>
   </div>
@@ -22,9 +24,13 @@ export default {
     quotes: []
   }),
   methods: {
+    deleteElement(elementIndex) {
+      this.quotes.splice(elementIndex, 1);
+      this.numQuotes--;
+    },
     addNewQuote(value, numChars) {
       if (numChars > 0 && this.numQuotes < 10) {
-        this.quotes.push(value);
+        this.quotes.push({ id: this.numQuotes, msg: value });
         this.numQuotes++;
       }
     }
