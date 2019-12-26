@@ -44,4 +44,26 @@ describe('MainApp', () => {
 
     expect(wrapper.findAll(SingleQuote).length).toBe(10);
   });
+
+  it('should have the right text', () => {
+    wrapper.find('#insertQuote').setValue('first');
+    wrapper.find('#add-quote-button').trigger('click');
+
+    expect(wrapper.find(SingleQuote).text()).toBe('first');
+  });
+  it('should delete a quote when you click on it', () => {
+    wrapper.find('#insertQuote').setValue('first');
+    wrapper.find('#add-quote-button').trigger('click');
+
+    wrapper.find('#insertQuote').setValue('second');
+    wrapper.find('#add-quote-button').trigger('click');
+
+    expect(wrapper.findAll(SingleQuote).length).toBe(2);
+
+    wrapper.findAll(SingleQuote).at(1).trigger('click');
+
+    expect(wrapper.findAll(SingleQuote).length).toBe(1);
+    expect(wrapper.findAll(SingleQuote).at(0).text()).toBe('first');
+    expect(wrapper.vm.numQuotes).toBe(1);
+  });
 });
