@@ -27,8 +27,8 @@ export default {
     quotes: []
   }),
   methods: {
-    deleteElement(elementIndex) {
-      this.quotes.splice(elementIndex, 1);
+    deleteElement(id) {
+      this.quotes = this.quotes.filter(item => item.id !== id);
       this.numQuotes--;
     },
     addNewQuote(value, numChars) {
