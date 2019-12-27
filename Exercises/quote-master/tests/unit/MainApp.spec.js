@@ -58,11 +58,15 @@ describe('MainApp', () => {
     wrapper.find('#insertQuote').setValue('second');
     wrapper.find('#add-quote-button').trigger('click');
 
-    expect(wrapper.findAll(SingleQuote).length).toBe(2);
+    wrapper.find('#insertQuote').setValue('third');
+    wrapper.find('#add-quote-button').trigger('click');
+    expect(wrapper.findAll(SingleQuote).length).toBe(3);
 
+    wrapper.findAll(SingleQuote).at(2).trigger('click');
+
+    expect(wrapper.findAll(SingleQuote).length).toBe(2);
     wrapper.findAll(SingleQuote).at(1).trigger('click');
 
-    expect(wrapper.findAll(SingleQuote).length).toBe(1);
     expect(wrapper.findAll(SingleQuote).at(0).text()).toBe('first');
     expect(wrapper.vm.numQuotes).toBe(1);
   });
