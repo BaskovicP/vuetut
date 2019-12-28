@@ -22,5 +22,11 @@ export default {
   font-family: cursive;
   border: 1px solid black;
   padding: 0.5rem;
+  font-size: 24px;
+  margin-top: 0.5rem;
+}
+.main-text:hover {
+  background-color: darksalmon;
+  cursor: pointer;
 }
 </style>
