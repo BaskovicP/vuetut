@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js --watch"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
