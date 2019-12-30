@@ -9,55 +9,61 @@
           <!-- Create a Signup Form where you retrieve the following Information -->
           <!-- Full Name (First Name + Last Name) -->
           <section v-if="!formSubmited">
-          <div class="form-group">
-            <label>First Name</label>
-            <input
-              id="first-name"
-              type="text"
-              class="form-control"
-              v-model="firstName"
-            />
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input
-              id="last-name"
-              type="text"
-              class="form-control"
-              v-model="lastName"
-            />
-          </div>
-          <div class="form-group">
-            <label>Mail</label>
-            <input id="mail" type="email" class="form-control" v-model="mail" />
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input
-              id="password"
-              type="password"
-              class="form-control"
-              v-model="password"
-            />
-          </div>
-          <div class="form-group">
-            <label>Store data? </label>
-            <label
-              ><input type="radio" value="Yes" v-model="storeInDatabase" /> Yes
-            </label>
+            <div class="form-group">
+              <label>First Name</label>
+              <input
+                id="first-name"
+                type="text"
+                class="form-control"
+                v-model="firstName"
+              />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input
+                id="last-name"
+                type="text"
+                class="form-control"
+                v-model="lastName"
+              />
+            </div>
+            <div class="form-group">
+              <label>Mail</label>
+              <input
+                id="mail"
+                type="email"
+                class="form-control"
+                v-model="mail"
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                id="password"
+                type="password"
+                class="form-control"
+                v-model="password"
+              />
+            </div>
+            <div class="form-group">
+              <label>Store data? </label>
+              <label
+                ><input type="radio" value="Yes" v-model="storeInDatabase" />
+                Yes
+              </label>
 
-            <label
-              ><input type="radio" value="No" v-model="storeInDatabase" />No
-            </label>
-          </div>
-          <button
-          id="main-submit-button"
-            class="primary"
-            type="submit"
-            @click.prevent="formSubmited = !formSubmited"
-          >
-            Sunmit all data here
-          </button>
+              <label
+                ><input type="radio" value="No" v-model="storeInDatabase" />No
+              </label>
+            </div>
+            <button
+              id="main-submit-button"
+              class="primary"
+              type="submit"
+              @click.prevent="formSubmited = !formSubmited"
+            >
+              Sunmit all data here
+            </button>
           </section>
 
           <!-- Mail -->
@@ -75,7 +81,7 @@
       </div>
     </form>
     <hr />
-    <custom-form :value='fullName'></custom-form>
+    <custom-form v-model="fullName"></custom-form>
     <hr />
     <div class="row" v-if="formSubmited">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
@@ -96,26 +102,21 @@
 </template>
 
 <script>
-
-import CustomForm from './FullName.vue'
+import CustomForm from "./FullName.vue";
 export default {
   data() {
     return {
       firstName: "",
       lastName: "",
+      fullName: "Testing sentence",
       mail: "",
       password: "",
       storeInDatabase: "Yes",
       formSubmited: false
     };
   },
-  computed: {
-    fullName() {
-      return this.firstName + " " + this.lastName;
-    }
-  },
-  components:{
-      'custom-form': CustomForm
+  components: {
+    "custom-form": CustomForm
   }
 };
 </script>

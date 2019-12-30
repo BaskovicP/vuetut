@@ -29,7 +29,7 @@ export default {
       if (isItFirst) {
         name = event.target.value + " " + this.lastName;
       } else {
-        name = this.lastName + " " + event.target.value;
+        name = this.firstName + " " + event.target.value;
       }
       this.$emit("input", name);
     }
