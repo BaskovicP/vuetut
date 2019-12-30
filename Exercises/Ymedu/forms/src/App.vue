@@ -75,6 +75,8 @@
       </div>
     </form>
     <hr />
+    <custom-form :value='fullName'></custom-form>
+    <hr />
     <div class="row" v-if="formSubmited">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="panel panel-default">
@@ -94,6 +96,8 @@
 </template>
 
 <script>
+
+import CustomForm from './FullName.vue'
 export default {
   data() {
     return {
@@ -109,6 +113,9 @@ export default {
     fullName() {
       return this.firstName + " " + this.lastName;
     }
+  },
+  components:{
+      'custom-form': CustomForm
   }
 };
 </script>
