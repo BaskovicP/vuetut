@@ -44,5 +44,5 @@ export default {
   }
 };
 
-//needs to have VALUE, and EMIT AN EVENT
+//needs to have VALUE, and EMIT AN EVENT with name input
 </script>
