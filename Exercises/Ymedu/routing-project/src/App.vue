@@ -8,6 +8,8 @@
     <button @click="leadMeToSomewhere">
       Imperative jump
     </button>
+    <br />
+    <br />
     <router-view></router-view>
   </div>
 </template>
