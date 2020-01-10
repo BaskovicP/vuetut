@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-link to="/user" tag="button"> UserPage</router-link>
+    <router-link to="/user" tag="button" active-class="my-active">
+      UserPage</router-link
+    >
     <br />
     <br />
     <router-view></router-view>
@@ -13,4 +15,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.my-active {
+  color: blue;
+  border: 2px solid blue;
+}
+</style>
