@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-link to="/user" tag="button" active-class="my-active" exact>
+    <router-link to="/user/123" tag="button" active-class="my-active" exact>
       UserPage</router-link
     >
     <br />
