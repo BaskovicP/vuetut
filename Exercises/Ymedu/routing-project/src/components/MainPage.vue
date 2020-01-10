@@ -1,5 +1,5 @@
 <template>
-  <div>Hello worold</div>
+  <div>MAIN PAGE</div>
 </template>
 
 <script>
