@@ -5,7 +5,11 @@
       Click here to go to a named route:
       <router-link
         :tag="button"
-        :to="{ name: 'user', params: { id: 12345678 } }"
+        :to="{
+          name: 'user',
+          params: { id: 12345678 },
+          query: { name: 'paulo' }
+        }"
       >
         Click here to go to name</router-link
       >

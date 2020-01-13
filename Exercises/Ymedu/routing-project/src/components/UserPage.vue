@@ -1,7 +1,9 @@
 <template>
   <div>
     You are in the user page. <br />
-    And the passed id is: {{ this.id }}
+    And the passed id is: {{ this.id }} <br />
+    And the query passed name is:
+    {{ this.$route.query.name }}
     <br />
     <br />
     <router-link to="/user/changed"> Change url</router-link>
