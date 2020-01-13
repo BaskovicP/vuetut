@@ -14,7 +14,12 @@
     <br />
     <br />
     <br />
+    <hr />
+    Default view: <br />
     <router-view></router-view>
+    <hr />
+    Named viw: <br />
+    <router-view name="main-top"></router-view>
   </div>
 </template>
 
