@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-link to="/user/123" tag="button" active-class="my-active" exact>
+    <router-link to="/user/edit" tag="button" active-class="my-active" exact>
       UserPage</router-link
     >
     <br />
@@ -8,6 +8,10 @@
     <button @click="leadMeToSomewhere">
       Imperative jump
     </button>
+    <br />
+    <br />
+    <div>Here comes the router part of the page:</div>
+    <br />
     <br />
     <br />
     <router-view></router-view>

@@ -1,5 +1,5 @@
 <template>
-  <div>MAIN PAGE</div>
+  <div>MAIN PAGE, just the skeleton</div>
 </template>
 
 <script>

@@ -5,6 +5,7 @@
     <br />
     <br />
     <router-link to="/user/changed"> Change url</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
