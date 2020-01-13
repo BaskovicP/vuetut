@@ -1,7 +1,13 @@
 import MainPage from "./components/MainPage";
-import UserPage from "./components/UserPage";
+//import UserPage from "./components/UserPage";
 import UserEdit from "./components/UserEdit";
 import MainTop from "./components/MainTop";
+
+const UserPage = resolve => {
+  require.ensure(["./components/UserPage"], () => {
+    resolve(require("./components/UserPage"));
+  });
+};
 
 export const routes = [
   {
