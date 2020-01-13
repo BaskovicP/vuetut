@@ -20,7 +20,12 @@ export const routes = [
     children: [
       // { path: "", component: UserPage },
       { path: "edit", component: UserEdit, name: "userEdit" }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      console.log(to, from);
+      console.log("About to enter the user page");
+      next();
+    }
   },
   { path: "/user/:id", component: UserPage },
   { path: "/crazy", redirect: "/user" }

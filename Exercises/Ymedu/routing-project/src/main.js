@@ -8,6 +8,11 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 const router = new VueRouter({ routes });
 
+router.beforeEach((to, from, next) => {
+  console.log("global beforeEach");
+  next();
+});
+
 new Vue({
   router,
   render: h => h(App)
