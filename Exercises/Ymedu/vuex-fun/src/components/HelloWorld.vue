@@ -4,7 +4,9 @@
     The counter is {{ counter }} <br />
     <button @click="increment">Increase</button> <br />
     <button @click="decrement">Decreaes</button>
-    <button @click="asyncIncrement">Async increase</button>
+    <button @click="asyncIncrement({ by: 10, time: 2000 })">
+      Async increase
+    </button>
   </div></template
 >
 <script>
