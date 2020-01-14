@@ -2,12 +2,13 @@
   <div>
     Hello dear world <br />
     The counter is {{ counter }} <br />
-    <button @click="increase">Increase</button> <br />
-    <button @click="decrease">Decreaes</button>
+    <button @click="increment">Increase</button> <br />
+    <button @click="decrement">Decreaes</button>
+    <button @click="asyncIncrement">Async increase</button>
   </div></template
 >
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -16,10 +17,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations({
-      increase: "increment",
-      decrease: "decrement"
-    })
+    ...mapActions(["increment", "decrement", "asyncIncrement"])
   }
 };
 </script>
