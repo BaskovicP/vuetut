@@ -17,10 +17,10 @@ export default {
   },
   methods: {
     increase() {
-      this.$store.state.counter++;
+      this.$store.commit("increment");
     },
     decrease() {
-      this.$store.state.counter--;
+      this.$store.commit("decrement");
     }
   }
 };
