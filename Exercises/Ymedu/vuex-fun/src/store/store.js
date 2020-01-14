@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
   },
   getters: {
     // name : state => function
-    doubleCounter: state => state.counter * 2
+    doubleCounter: state => state.counter * 2,
+    normalCounter: state => state.counter
   },
   mutations: {
     increment: (state, payload) => {
@@ -17,6 +18,9 @@ export const store = new Vuex.Store({
     },
     decrement: state => {
       state.counter--;
+    },
+    updateValue: (state, value) => {
+      state.counter = value;
     }
   },
   actions: {
@@ -28,6 +32,7 @@ export const store = new Vuex.Store({
     },
     asyncIncrement: ({ commit }, payload) => {
       setTimeout(() => commit("increment", payload), payload.time);
-    }
+    },
+    updateValue: ({ commit }, value) => commit("updateValue", value)
   }
 });
