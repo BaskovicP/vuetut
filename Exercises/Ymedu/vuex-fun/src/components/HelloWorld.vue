@@ -9,7 +9,11 @@
     </button>
     <br />
     <br />
-    <input type="text" name="randomInput" id="my-input" v-model="value" /></div
+    <input type="text" name="randomInput" id="my-input" v-model="value" />
+    <br />
+    <br />
+    {{ textValue }}
+    <input type="text" v-model="textValue" /></div
 ></template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -25,6 +29,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch("updateValue", value);
+      }
+    },
+    textValue: {
+      get() {
+        return this.$store.getters.getText;
+      },
+      set(value) {
+        this.$store.dispatch("setText", value);
       }
     }
   },
