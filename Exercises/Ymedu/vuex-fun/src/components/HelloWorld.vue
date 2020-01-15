@@ -13,8 +13,10 @@
     <br />
     <br />
     {{ textValue }}
-    <input type="text" v-model="textValue" /></div
-></template>
+    <input type="text" v-model="textValue" />
+    <button @click="write">Console log it all</button>
+  </div></template
+>
 <script>
 import { mapGetters, mapActions } from "vuex";
 
@@ -23,6 +25,7 @@ export default {
     ...mapGetters({
       counter: "doubleCounter"
     }),
+    ...mapGetters("writing", ["getText"]),
     value: {
       get() {
         return this.$store.getters.normalCounter;
@@ -33,15 +36,19 @@ export default {
     },
     textValue: {
       get() {
-        return this.$store.getters.getText;
+        return this.getText;
       },
       set(value) {
-        this.$store.dispatch("setText", value);
+        this.setText(value);
       }
     }
   },
   methods: {
-    ...mapActions(["increment", "decrement", "asyncIncrement"])
+    ...mapActions(["increment", "decrement", "asyncIncrement"]),
+    ...mapActions("writing", ["setText"]),
+    write() {
+      console.log(this);
+    }
   }
 };
 </script>
