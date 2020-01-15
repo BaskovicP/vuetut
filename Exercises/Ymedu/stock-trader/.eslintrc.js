@@ -1,13 +1,7 @@
 module.exports = {
   root: true,
   extends: '@extensionengine',
-  // env: {
-  //   node: true
-  // },
-  // 'extends': [
-  //   'plugin:vue/essential',
-  //   'eslint:recommended'
-  // ],
+  plugins: ['vuetify'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
