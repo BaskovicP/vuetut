@@ -1,20 +1,23 @@
 <template>
-    <div>
-        <app-stock v-for="stock in stocks" :stock="stock"></app-stock>
-    </div>
+  <div>
+    <app-stock v-for="stock in stocks" :key="stock.stockId" :stock="stock" />
+  </div>
 </template>
 
 <script>
-    import Stock from './Stock.vue';
+import Stock from './Stock.vue';
 
-    export default {
-        components: {
-            appStock: Stock
-        },
-        computed: {
-            stocks() {
-                return this.$store.getters.stocks;
-            }
-        }
+export default {
+  computed: {
+    stocks() {
+      return this.$store.getters.stocks;
+    },
+    random() {
+      return Math.random();
     }
+  },
+  components: {
+    appStock: Stock
+  }
+};
 </script>

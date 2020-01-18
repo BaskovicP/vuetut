@@ -13,15 +13,15 @@
 
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <router-link class="nav-link" to="/portfolio" tag="a">Portfolio <span class="sr-only">(current)</span></router-link>
+          <li class="nav-item">
+            <router-link active-class="nav-link active" class="nav-link" to="/portfolio" tag="a">Portfolio </router-link>
             <!-- <a class="nav-link" href="#">Portfolio </a> -->
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/stocks" tag="a">Stocks</router-link>
+            <router-link active-class="nav-link active" class="nav-link" to="/stocks" tag="a">Stocks</router-link>
           </li>
           <li class="nav-item">
-            <a @click="endDay" href="#">End Day</a>
+            <a @click="endDay" class="nav-link" href="#">End Day</a>
           </li>
 
           <!-- <li class="nav-item dropdown">
@@ -44,7 +44,7 @@
         </ul> -->
         </ul>
         <span class="navbar-text">
-          FUNDS: {{ funds }}
+          FUNDS: {{ funds | currency }}
         </span>
       </div>
     </nav>
