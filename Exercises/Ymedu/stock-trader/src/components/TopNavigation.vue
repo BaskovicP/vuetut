@@ -1,7 +1,9 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">StockTrader</a>
+      <div class="navbar-header">
+        <router-link class="navbar-brand" to="/" tag="a">StockTrader</router-link>
+      </div>
       <button
         class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
@@ -12,14 +14,16 @@
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Portfolio <span class="sr-only">(current)</span></a>
+            <router-link class="nav-link" to="/portfolio" tag="a">Portfolio <span class="sr-only">(current)</span></router-link>
+            <!-- <a class="nav-link" href="#">Portfolio </a> -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Stocks</a>
+            <router-link class="nav-link" to="/stocks" tag="a">Stocks</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">End Day</a>
+            <a @click="endDay" href="#">End Day</a>
           </li>
+
           <!-- <li class="nav-item dropdown">
             <a
               id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -40,14 +44,25 @@
         </ul> -->
         </ul>
         <span class="navbar-text">
-          FUNDS
+          FUNDS: {{ funds }}
         </span>
       </div>
     </nav>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  },
+  methods: {
+    endDay() {
+      console.log('This one should end the day');
+    }
+  }
+};
 </script>
 
 <style></style>
