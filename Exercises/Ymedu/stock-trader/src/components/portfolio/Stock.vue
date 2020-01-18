@@ -1,13 +1,13 @@
 <template>
   <div class="col-sm-6 col-md-4">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">
+    <div class="card text-white mb-3">
+      <div class="card-header bg-success ">
+        <h3 class="card-title">
           {{ stock.name }}
           <small>(Price: {{ stock.price }} | Quantity: {{ stock.quantity }})</small>
         </h3>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <div class="pull-left">
           <input
             v-model="quantity"
