@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-3" style="margin-bottom: 1rem">
     <div class="card text-white mb-3">
       <div class="card-header bg-success ">
         <h3 class="card-title">

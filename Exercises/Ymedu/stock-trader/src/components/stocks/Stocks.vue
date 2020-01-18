@@ -1,5 +1,5 @@
 <template>
-  <div class="card-group">
+  <div class="row">
     <app-stock v-for="stock in stocks" :key="stock.stockId" :stock="stock" />
   </div>
 </template>
