@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     endDay() {
-      console.log('This one should end the day');
+      this.$store.dispatch('randomizeStocks');
     }
   }
 };
