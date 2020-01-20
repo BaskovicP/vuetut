@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-3" style="margin-bottom: 1rem">
+  <div class="col-sm-4" style="margin-bottom: 1rem">
     <div class="card card-success">
       <div class="card-header bg-success ">
         <h3 class="card-title text-white">
@@ -8,7 +8,7 @@
         </h3>
       </div>
       <div class="card-body ">
-        <div class="pull-left">
+        <div class="float-left">
           <input
             v-model="quantity"
             type="number"
@@ -16,7 +16,7 @@
             placeholder="Quantity"
             :class="{danger: insufficientFunds}">
         </div>
-        <div class="pull-right">
+        <div class="float-right">
           <button
             @click="buyStock"
             class="btn btn-success"
