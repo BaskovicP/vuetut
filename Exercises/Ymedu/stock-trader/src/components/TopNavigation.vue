@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="top-navigation-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="navbar-header">
         <router-link class="navbar-brand" to="/" tag="a">StockTrader</router-link>
@@ -19,6 +19,9 @@
           </li>
           <li class="nav-item">
             <router-link active-class="nav-link active" class="nav-link" to="/stocks" tag="a">Stocks</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link active-class="nav-link active" class="nav-link" to="/analysis" tag="a">Analysis</router-link>
           </li>
           <li class="nav-item">
             <a @click="endDay" class="nav-link" href="#">End Day</a>
@@ -65,4 +68,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#top-navigation-wrapper {
+  margin-bottom: 1rem;
+}
+</style>
