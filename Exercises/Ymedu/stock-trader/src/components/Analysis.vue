@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <div v-if="stockData!==false && stockData.length>1">
-      <GChart
-        type="AreaChart"
-        :data="stockData"
-        :options="chartOptions" />
+    <div v-if="stockData(1).length>1">
+      <section v-for="item in analysis" :key="'chart'+ item">
+        <GChart
+          type="AreaChart"
+          :data="stockData(item)"
+          :options="chartOptions" />
+      </section>
     </div>
-    <div v-else> Please select a stock to analyse it (from the stocks menu) or press end day</div>
+    <div v-else>End the current day.</div>
+    <div v-if="analysis.length===0">Please select a stock from the stock tab</div>
   </div>
 </template>
 
 <script>
+
 import { GChart } from 'vue-google-charts';
 export default {
   name: 'app',
   data() {
     return {
-      // Array will be automatically processed with visualization.arrayToDataTable function
+      stocks: [],
       chartOptions: {
         chart: {
           title: 'Stock Performance',
@@ -26,10 +30,17 @@ export default {
     };
   },
   computed: {
-    stockData() {
+
+    analysis() {
+      return this.$store.getters.stockstToAnalyze;
+    }
+  },
+  methods: {
+    stockData(value) {
+      const fetchStock = parseInt(value, 10) - 1;
       const allData = this.$store.getters.stockHistory;
-      if (parseInt(this.$route.query.stock, 10) - 1 >= 0) {
-        return allData[parseInt(this.$route.query.stock, 10) - 1];
+      if (fetchStock >= 0) {
+        return allData[fetchStock];
       } else return false;
     }
   },

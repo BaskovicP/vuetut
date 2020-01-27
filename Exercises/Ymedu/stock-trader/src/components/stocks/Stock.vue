@@ -23,7 +23,9 @@
             :disabled="insufficientFunds || +quantity <= 0 || !Number.isInteger(+quantity)">
             {{ insufficientFunds ? 'No funds' : 'Buy' }}
           </button>
-          <router-link style="margin-left:0.5rem" class="btn btn-success" :to="'/analysis?stock='+stock.id" tag="button">Analyze</router-link>
+          <button @click="sendToAnalysis" :class=" analysedStocks.includes(stock.id) ? 'btn btn-danger': 'btn btn-success'" style="margin-left:0.5rem">
+            Analyze
+          </button>
         </div>
       </div>
     </div>
@@ -52,9 +54,15 @@ export default {
     },
     insufficientFunds() {
       return this.quantity * this.stock.price > this.funds;
+    },
+    analysedStocks() {
+      return this.$store.getters.stockstToAnalyze;
     }
   },
   methods: {
+    sendToAnalysis() {
+      this.$store.dispatch('analyzeThis', this.stock.id);
+    },
     buyStock() {
       const order = {
         stockId: this.stock.id,

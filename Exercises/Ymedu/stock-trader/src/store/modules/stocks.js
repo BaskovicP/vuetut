@@ -3,7 +3,8 @@ import stocks from '../../data/stocks';
 const state = {
   stocks: [],
   stockHistory: [],
-  day: 1
+  day: 1,
+  stockToAnalyse: []
 };
 
 const mutations = {
@@ -17,6 +18,11 @@ const mutations = {
       stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
     });
     state.day++;
+  },
+  'SET_STOCKS_TO_ANALYZE'(state, value) {
+    if (!state.stockToAnalyse.includes(value)) state.stockToAnalyse.push(value);
+    else state.stockToAnalyse = state.stockToAnalyse.filter(item => item !== value);
+    console.log(value);
   }
 };
 
@@ -29,6 +35,9 @@ const actions = {
   },
   randomizeStocks: ({ commit }) => {
     commit('RND_STOCKS');
+  },
+  analyzeThis: ({ commit }, value) => {
+    commit('SET_STOCKS_TO_ANALYZE', value);
   }
 };
 
@@ -41,6 +50,9 @@ const getters = {
   },
   stockHistory: state => {
     return state.stockHistory;
+  },
+  stockstToAnalyze: state => {
+    return state.stockToAnalyse;
   }
 };
 

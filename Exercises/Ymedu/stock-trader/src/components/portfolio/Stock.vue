@@ -20,7 +20,7 @@
           <button
             @click="sellStock"
             class="btn btn-success"
-            :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)">
+            :disabled="insufficientQuantity || quantity <= 0 ">
             {{ insufficientQuantity ? 'Not enough' : 'Sell' }}
           </button>
         </div>
@@ -61,7 +61,6 @@ export default {
         quantity: this.quantity
       };
       this.placeSellOrder(order);
-      this.quantity = 0;
     }
   }
 };
