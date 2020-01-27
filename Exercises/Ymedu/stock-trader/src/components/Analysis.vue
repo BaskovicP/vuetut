@@ -2,7 +2,7 @@
   <div id="app">
     <div v-if="stockData!==false && stockData.length>1">
       <GChart
-        type="ColumnChart"
+        type="AreaChart"
         :data="stockData"
         :options="chartOptions" />
     </div>
@@ -29,7 +29,6 @@ export default {
     stockData() {
       const allData = this.$store.getters.stockHistory;
       if (parseInt(this.$route.query.stock, 10) - 1 >= 0) {
-        console.log(allData[parseInt(this.$route.query.stock, 10) - 1]);
         return allData[parseInt(this.$route.query.stock, 10) - 1];
       } else return false;
     }
