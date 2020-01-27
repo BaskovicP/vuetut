@@ -1,7 +1,7 @@
 import App from '@/App';
 import { mount } from '@vue/test-utils';
 import TopNavigation from '@/components/TopNavigation.vue';
-describe('HelloWorld.vue', () => {
+describe('TopNavigation.vue', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(App);

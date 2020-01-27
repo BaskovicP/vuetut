@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 col-md-6 col-lg-4" style="margin-bottom: 1rem">
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3" style="margin-bottom: 1rem">
     <div class="card card-success">
       <div class="card-header bg-success ">
         <h3 class="card-title text-white">
@@ -21,8 +21,9 @@
             @click="buyStock"
             class="btn btn-success"
             :disabled="insufficientFunds || +quantity <= 0 || !Number.isInteger(+quantity)">
-            {{ insufficientFunds ? 'Insufficient Funds' : 'Buy' }}
+            {{ insufficientFunds ? 'No funds' : 'Buy' }}
           </button>
+          <router-link style="margin-left:0.5rem" class="btn btn-success" :to="'/analysis?stock='+stock.id" tag="button">Analyze</router-link>
         </div>
       </div>
     </div>

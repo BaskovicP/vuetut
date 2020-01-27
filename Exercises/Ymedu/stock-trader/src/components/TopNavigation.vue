@@ -26,25 +26,9 @@
           <li class="nav-item">
             <a @click="endDay" class="nav-link" href="#">End Day</a>
           </li>
-
-          <!-- <li class="nav-item dropdown">
-            <a
-              id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <li class="nav-item">
+            <div class="nav-link">Day number: <span style="color: black">{{ day }}</span></div>
           </li>
-        </ul> -->
         </ul>
         <span class="navbar-text">
           FUNDS: {{ funds | currency }}
@@ -58,6 +42,9 @@ export default {
   computed: {
     funds() {
       return this.$store.getters.funds;
+    },
+    day() {
+      return this.$store.getters.day;
     }
   },
   methods: {

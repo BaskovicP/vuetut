@@ -5,7 +5,7 @@ export default [
   { id: 4, name: 'Twitter', price: 8 },
   { id: 5, name: 'OPTE', price: 8 },
   { id: 6, name: 'HT', price: 8 },
-  { id: 7, name: 'HT', price: 8 },
-  { id: 8, name: 'HT', price: 8 },
+  { id: 7, name: 'PODR', price: 800 },
+  { id: 8, name: 'ULJN', price: 2 },
   { id: 9, name: 'ZABA', price: 78 }
 ];
