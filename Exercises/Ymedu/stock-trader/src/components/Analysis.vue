@@ -2,6 +2,7 @@
   <div id="app">
     <div v-if="stockData(1).length>1">
       <section v-for="item in analysis" :key="'chart'+ item">
+        <h3>Stock: {{ getStocks.filter(stock=> stock.id===item )[0].name }}</h3>
         <GChart
           type="AreaChart"
           :data="stockData(item)"
@@ -25,12 +26,16 @@ export default {
         chart: {
           title: 'Stock Performance',
           subtitle: 'Stock performance over days'
-        }
+        },
+        colors: ['orange', 'red', 'green'],
+        height: 300
       }
     };
   },
   computed: {
-
+    getStocks() {
+      return this.$store.getters.stocks;
+    },
     analysis() {
       return this.$store.getters.stockstToAnalyze;
     }
@@ -44,6 +49,11 @@ export default {
       } else return false;
     }
   },
+  getStockName(id) {
+    console.log(this.$store.state);
+    return this.$store.state.stocks.stocks.filter(item => item.id === id).name;
+  },
+
   components: {
     GChart
   }

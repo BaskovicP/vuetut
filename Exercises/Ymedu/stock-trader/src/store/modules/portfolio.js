@@ -36,6 +36,7 @@ const actions = {
   sellStock({ commit }, order) {
     commit('SELL_STOCK', order);
   }
+
 };
 
 const getters = {
@@ -52,6 +53,9 @@ const getters = {
   },
   funds(state) {
     return state.funds;
+  },
+  getNameStock: state => id => {
+    return state.stocks.filter(item => item.id === id).name;
   }
 };
 
