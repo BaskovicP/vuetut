@@ -22,12 +22,12 @@
           <button
             @click="buyStock"
             class="btn btn-success"
-            :disabled="insufficientFunds || +quantity <= 0 || !Number.isInteger(+quantity)">
+            :disabled="disableBuy">
             {{ insufficientFunds ? 'No funds' : 'Buy' }}
           </button>
           <button
             @click="sendToAnalysis"
-            :class=" analysedStocks.includes(stock.id) ? 'btn btn-danger': 'btn btn-success'"
+            :class="stockSelectedForAnalysis"
             style="margin-left:0.5rem">
             Analyze
           </button>
@@ -57,6 +57,15 @@ export default {
     }),
     insufficientFunds() {
       return this.quantity * this.stock.price > this.funds;
+    },
+    disableBuy() {
+      return this.insufficientFunds ||
+      +this.quantity <= 0 ||
+      !Number.isInteger(+this.quantity);
+    },
+    stockSelectedForAnalysis() {
+      return this.analysedStocks.includes(this.stock.id)
+        ? 'btn btn-danger' : 'btn btn-success';
     }
   },
   methods: {

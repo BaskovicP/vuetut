@@ -21,7 +21,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'app',
   data: () => ({
-
     stocks: [],
     chartOptions: {
       chart: {
@@ -51,7 +50,6 @@ export default {
   getStockName(id) {
     return this.getStocks.filter(item => item.id === id).name;
   },
-
   components: {
     GChart
   }

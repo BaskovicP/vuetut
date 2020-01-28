@@ -39,8 +39,7 @@ describe('MainApp.vue', () => {
     // on the stocks route and then the promise returns an error
     // router.push('/stocks');
     // await wrapper.vm.$nextTick();
-    console.log(wrapper.text());
-    router.push('/stocks');
+
     await wrapper.vm.$nextTick();
     const firstStock = wrapper.find(stock);
     firstStock.find('.form-control').setValue(1000);

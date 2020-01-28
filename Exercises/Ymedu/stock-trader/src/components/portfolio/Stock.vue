@@ -6,7 +6,7 @@
       <div class="card-header bg-success ">
         <h3 class="card-title">
           {{ stock.name }}
-          <small>(Price: {{ stock.price }} | Quantity: {{ stock.quantity }})</small>
+          <small>{{ cardHeader }}</small>
         </h3>
       </div>
       <div class="card-body">
@@ -46,6 +46,9 @@ export default {
   computed: {
     insufficientQuantity() {
       return this.quantity > this.stock.quantity;
+    },
+    cardHeader() {
+      return `(Price: ${this.stock.price} | Quantity: ${this.stock.quantity})`;
     }
   },
   methods: {
