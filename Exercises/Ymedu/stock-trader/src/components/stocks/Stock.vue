@@ -44,6 +44,7 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props: {
     stock: { type: Object, required: true }
@@ -54,14 +55,12 @@ export default {
     };
   },
   computed: {
-    funds() {
-      return this.$store.getters.funds;
-    },
+    ...mapGetters({
+      funds: 'funds',
+      analysedStocks: 'stocksToAnalyze'
+    }),
     insufficientFunds() {
       return this.quantity * this.stock.price > this.funds;
-    },
-    analysedStocks() {
-      return this.$store.getters.stocksToAnalyze;
     }
   },
   methods: {
