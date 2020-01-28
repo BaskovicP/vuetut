@@ -6,14 +6,22 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "hooks": " vue-cli-service test:unit && vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.4.4",
+    "lint-staged": "^10.0.3",
     "vue": "^2.6.10",
     "vue-google-charts": "^0.3.2",
     "vue-router": "^3.1.3",
     "vuex": "^3.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run hooks",
+      "pre-push": "npm run hooks"
+    }
   },
   "devDependencies": {
     "@extensionengine/eslint-config": "^1.1.0",
@@ -34,6 +42,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.1.2",
     "eslint-plugin-vuetify": "^1.0.0-beta.5",
+    "husky": "^4.2.1",
     "vue-template-compiler": "^2.6.10",
     "vuetify": "^2.2.4"
   }
