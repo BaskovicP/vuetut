@@ -2,7 +2,7 @@
   <div id="app">
     <div v-if="stockData(1).length>1">
       <section v-for="item in analysis" :key="'chart'+ item">
-        <h3>Stock: {{ getStocks.filter(stock=> stock.id===item )[0].name }}</h3>
+        <h3>{{ getStocks.filter(stock=> stock.id===item )[0].name }}:</h3>
         <GChart
           type="AreaChart"
           :data="stockData(item)"
@@ -17,40 +17,39 @@
 <script>
 
 import { GChart } from 'vue-google-charts';
+import { mapGetters } from 'vuex';
 export default {
   name: 'app',
-  data() {
-    return {
-      stocks: [],
-      chartOptions: {
-        chart: {
-          title: 'Stock Performance',
-          subtitle: 'Stock performance over days'
-        },
-        colors: ['orange', 'red', 'green'],
-        height: 300
-      }
-    };
-  },
-  computed: {
-    getStocks() {
-      return this.$store.getters.stocks;
-    },
-    analysis() {
-      return this.$store.getters.stocksToAnalyze;
+  data: () => ({
+
+    stocks: [],
+    chartOptions: {
+      chart: {
+        title: 'Stock Performance',
+        subtitle: 'Stock performance over days'
+      },
+      colors: ['orange', 'red', 'green'],
+      height: 300
     }
+  }),
+  computed: {
+    ...mapGetters({
+      getStocks: 'stocks',
+      analysis: 'stocksToAnalyze',
+      stockHistory: 'stockHistory'
+    })
   },
   methods: {
     stockData(value) {
       const fetchStock = parseInt(value, 10) - 1;
-      const allData = this.$store.getters.stockHistory;
+      const allData = this.stockHistory;
       if (fetchStock >= 0) {
         return allData[fetchStock];
       } else return false;
     }
   },
   getStockName(id) {
-    return this.$store.state.stocks.stocks.filter(item => item.id === id).name;
+    return this.getStocks.filter(item => item.id === id).name;
   },
 
   components: {

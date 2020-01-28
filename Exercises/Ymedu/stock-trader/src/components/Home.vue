@@ -8,11 +8,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   computed: {
-    funds() {
-      return this.$store.getters.funds;
-    }
+    ...mapGetters({
+      funds: 'funds'
+    })
   }
 };
 </script>

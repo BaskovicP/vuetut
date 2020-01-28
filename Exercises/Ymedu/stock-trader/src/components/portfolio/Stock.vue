@@ -1,5 +1,7 @@
 <template>
-  <div class="col-sm-6 col-md-6 col-lg-4" style="margin-bottom: 1rem">
+  <div
+    class="col-sm-6 col-md-6 col-lg-6 col-xl-4"
+    style="margin-bottom: 1rem; min-width:470px">
     <div class="card text-white mb-3">
       <div class="card-header bg-success ">
         <h3 class="card-title">
@@ -40,11 +42,7 @@ import { mapActions } from 'vuex';
 
 export default {
   props: { stock: { type: [Object], required: true } },
-  data() {
-    return {
-      quantity: 0
-    };
-  },
+  data: () => ({ quantity: 0 }),
   computed: {
     insufficientQuantity() {
       return this.quantity > this.stock.quantity;
@@ -54,7 +52,7 @@ export default {
     ...mapActions({
       placeSellOrder: 'sellStock'
     }),
-    sellStock() {
+    sellStock: () => {
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,

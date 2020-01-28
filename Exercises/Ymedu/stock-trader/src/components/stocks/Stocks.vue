@@ -5,16 +5,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Stock from './Stock.vue';
 
 export default {
   computed: {
-    stocks() {
-      return this.$store.getters.stocks;
-    },
-    random() {
-      return Math.random();
-    }
+    ...mapGetters({ stocks: 'stocks' })
   },
   components: {
     appStock: Stock
