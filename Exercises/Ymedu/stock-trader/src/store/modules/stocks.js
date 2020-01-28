@@ -50,7 +50,7 @@ const getters = {
   stockHistory: state => {
     return state.stockHistory;
   },
-  stockstToAnalyze: state => {
+  stocksToAnalyze: state => {
     return state.stockToAnalyse;
   }
 };

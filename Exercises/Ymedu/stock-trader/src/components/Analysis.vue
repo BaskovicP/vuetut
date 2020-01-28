@@ -37,7 +37,7 @@ export default {
       return this.$store.getters.stocks;
     },
     analysis() {
-      return this.$store.getters.stockstToAnalyze;
+      return this.$store.getters.stocksToAnalyze;
     }
   },
   methods: {

@@ -56,7 +56,7 @@ export default {
       return this.quantity * this.stock.price > this.funds;
     },
     analysedStocks() {
-      return this.$store.getters.stockstToAnalyze;
+      return this.$store.getters.stocksToAnalyze;
     }
   },
   methods: {
