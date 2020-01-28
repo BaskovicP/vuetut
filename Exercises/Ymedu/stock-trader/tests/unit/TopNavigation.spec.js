@@ -1,5 +1,4 @@
-import { localVue } from '../Factory';
-import { routes } from '@/router/routes';
+import { localVue, setRouter } from '../Factory';
 import { shallowMount } from '@vue/test-utils';
 import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
@@ -10,7 +9,7 @@ describe('MainApp.vue', () => {
     wrapper = shallowMount(TopNavigation, {
       store,
       localVue: localVue(),
-      routes
+      router: setRouter()
     });
   });
 

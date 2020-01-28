@@ -13,7 +13,7 @@ export const localVue = () => {
   return tempLocalVue;
 };
 
-export const router = new VueRouter({ routes });
+export const setRouter = () => new VueRouter({ routes });
 
 export const stringSearcher = (wrapper, arrayStrings) => {
   let allMatched = true;
