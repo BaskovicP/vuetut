@@ -51,7 +51,6 @@ describe('MainApp.vue', () => {
     await wrapper.vm.$nextTick();
     router.push('/portfolio');
 
-    console.log(wrapper.text());
     expect(stringSearcher(wrapper,
       ['FUNDS: 9,890 HRK', 'BMW', 'Quantity: 1'])).toBe(true);
 
