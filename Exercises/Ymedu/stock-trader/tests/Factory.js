@@ -14,3 +14,11 @@ export const localVue = () => {
 };
 
 export const router = new VueRouter({ routes });
+
+export const stringSearcher = (wrapper, arrayStrings) => {
+  let allMatched = true;
+  arrayStrings.forEach(str => {
+    if (!wrapper.text().match(str)) allMatched = false;
+  });
+  return allMatched;
+};

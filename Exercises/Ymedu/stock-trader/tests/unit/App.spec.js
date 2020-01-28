@@ -1,6 +1,7 @@
-import { localVue, router } from '../Factory';
+import { localVue, router, stringSearcher } from '../Factory';
 import App from '@/App';
 import { mount } from '@vue/test-utils';
+import stock from '@/components/stocks/Stock';
 import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
 
@@ -30,5 +31,30 @@ describe('MainApp.vue', () => {
     router.push('/stocks');
     await wrapper.vm.$nextTick();
     expect(wrapper.text()).toMatchSnapshot();
+  });
+
+  it('should buy a new stock and the sell it', async () => {
+    router.push('/stocks');
+    await wrapper.vm.$nextTick();
+    const firstStock = wrapper.find(stock);
+    firstStock.find('.form-control').setValue(1000);
+
+    // when you want to buy but you don't have the cash
+    expect((firstStock.text().match('No funds') || []).length).toBe(1);
+
+    firstStock.find('.form-control').setValue(1);
+    expect((firstStock.text().match('No funds') || []).length).toBe(0);
+
+    firstStock.find('.btn').trigger('click');
+    expect(firstStock.find('.form-control').text()).toBe('');
+
+    await wrapper.vm.$nextTick();
+    router.push('/portfolio');
+
+    console.log(wrapper.text());
+    expect(stringSearcher(wrapper,
+      ['FUNDS: 9,890 HRK', 'BMW', 'Quantity: 1'])).toBe(true);
+
+    // expect(wrapper.text().match('FUNDS: 9,890 HRK'))
   });
 });
