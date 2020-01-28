@@ -50,7 +50,6 @@ export default {
     }
   },
   getStockName(id) {
-    console.log(this.$store.state);
     return this.$store.state.stocks.stocks.filter(item => item.id === id).name;
   },
 
