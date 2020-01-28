@@ -49,11 +49,7 @@ export default {
   props: {
     stock: { type: Object, required: true }
   },
-  data() {
-    return {
-      quantity: 0
-    };
-  },
+  data: () => ({ quantity: 0 }),
   computed: {
     ...mapGetters({
       funds: 'funds',
