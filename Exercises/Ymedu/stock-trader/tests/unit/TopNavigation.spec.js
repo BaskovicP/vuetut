@@ -1,4 +1,5 @@
-import { localVue } from '../FakeStore';
+import { localVue } from '../Factory';
+import { routes } from '@/router/routes';
 import { shallowMount } from '@vue/test-utils';
 import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
@@ -8,7 +9,8 @@ describe('MainApp.vue', () => {
   beforeEach(() => {
     wrapper = shallowMount(TopNavigation, {
       store,
-      localVue
+      localVue: localVue(),
+      routes
     });
   });
 
@@ -30,5 +32,13 @@ describe('MainApp.vue', () => {
   });
   it('should have 10,000 founds as a starting point', () => {
     expect(wrapper.find('.navbar-text').text()).toBe('FUNDS: 10,000 HRK');
+  });
+  it('should increase the number of days when we click on the end day', async () => {
+    wrapper.find('#end-day-btn').trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find('#day-number').text()).toBe('2');
+    wrapper.find('#end-day-btn').trigger('click');
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find('#day-number').text()).toBe('3');
   });
 });

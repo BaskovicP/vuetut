@@ -24,10 +24,10 @@
             <router-link active-class="nav-link active" class="nav-link" to="/analysis" tag="a">Analysis</router-link>
           </li>
           <li class="nav-item">
-            <a @click="endDay" class="nav-link" href="#">End Day</a>
+            <a @click="endDay" id="end-day-btn" class="nav-link" href="#">End Day</a>
           </li>
           <li class="nav-item">
-            <div class="nav-link">Day number: <span style="color: black">{{ day }}</span></div>
+            <div class="nav-link">Day number: <span id="day-number" style="color: black">{{ day }}</span></div>
           </li>
         </ul>
         <span class="navbar-text">

@@ -22,7 +22,6 @@ const mutations = {
   'SET_STOCKS_TO_ANALYZE'(state, value) {
     if (!state.stockToAnalyse.includes(value)) state.stockToAnalyse.push(value);
     else state.stockToAnalyse = state.stockToAnalyse.filter(item => item !== value);
-    console.log(value);
   }
 };
 
