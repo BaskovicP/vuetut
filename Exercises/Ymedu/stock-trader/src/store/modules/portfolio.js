@@ -14,6 +14,7 @@ const mutations = {
         quantity: quantity
       });
     }
+    // for those nasty cheaters who add - in the quantity ;
     quantity = quantity > 0 ? quantity : (-1 * quantity);
     state.funds -= stockPrice * quantity;
   },
