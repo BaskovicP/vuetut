@@ -1,12 +1,34 @@
+import { localVue } from '../FakeStore';
 import { shallowMount } from '@vue/test-utils';
+import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(TopNavigation, {
-      propsData: { msg }
+describe('MainApp.vue', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallowMount(TopNavigation, {
+      store,
+      localVue
     });
-    expect(wrapper.text()).toMatch(msg);
+  });
+
+  it('should be defined', () => {
+    expect(wrapper).toBeDefined();
+  });
+  it('contains the navigation bar component', () => {
+    expect(wrapper.contains(TopNavigation)).toBe(true);
+  });
+  it('should contain the name StockTrader', () => {
+    expect(wrapper.find('.navbar-brand').text()).toBe('StockTrader');
+  });
+  it('should contain navlinks Portfolio,Stocks,End Day', () => {
+    const searchingFor = ['Portfolio', 'Analysis', 'Stocks', 'End Day'];
+    expect(wrapper
+      .findAll('.nav-link')
+      .filter(item => searchingFor.includes(item.text())).length)
+      .toBe(searchingFor.length);
+  });
+  it('should have 10,000 founds as a starting point', () => {
+    expect(wrapper.find('.navbar-text').text()).toBe('FUNDS: 10,000 HRK');
   });
 });
