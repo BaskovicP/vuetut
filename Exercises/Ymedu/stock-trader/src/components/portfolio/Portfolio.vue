@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div v-if="stocks.length<=0">Please buy some stocks, you don't want to end poor.</div>
+    <div v-if="noStocks">Please buy some stocks, you don't want to end poor.</div>
     <app-stock v-for="stock in stocks" :key="stock.stockId" :stock="stock" />
   </div>
 </template>
@@ -13,7 +13,8 @@ export default {
   computed: {
     ...mapGetters({
       stocks: 'stockPortfolio'
-    })
+    }),
+    noStocks() { return this.stocks.length <= 0; }
   },
   components: {
     appStock: Stock
