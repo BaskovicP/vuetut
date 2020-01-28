@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainApp.vue should change the pages with router 1`] = `
+"StockTrader  Portfolio  Stocks Analysis End Day Day number: 1 
+        FUNDS: 10,000 HRK
+       
+        BMW
+        (Price: 110)  
+          Buy
+         
+          Analyze
+        
+        Google
+        (Price: 200)  
+          Buy
+         
+          Analyze
+        
+        Apple
+        (Price: 250)  
+          Buy
+         
+          Analyze
+        
+        Twitter
+        (Price: 8)  
+          Buy
+         
+          Analyze
+        
+        OPTE
+        (Price: 8)  
+          Buy
+         
+          Analyze
+        
+        HT
+        (Price: 8)  
+          Buy
+         
+          Analyze
+        
+        PODR
+        (Price: 800)  
+          Buy
+         
+          Analyze
+        
+        ULJN
+        (Price: 2)  
+          Buy
+         
+          Analyze
+        
+        ZABA
+        (Price: 78)  
+          Buy
+         
+          Analyze"
+`;

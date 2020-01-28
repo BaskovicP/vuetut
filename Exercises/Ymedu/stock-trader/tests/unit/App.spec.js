@@ -21,9 +21,14 @@ describe('MainApp.vue', () => {
     expect(wrapper.text().match('Trade or View your Portfolio').length).toBe(1);
   });
   it('should change the pages with router', async () => {
-    // console.log(wrapper.html());
-    wrapper.find('.nav-item').trigger('click');
+    router.push('/portfolio');
     await wrapper.vm.$nextTick();
-    // console.log(wrapper.html());
+    expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
+    router.push('/analysis');
+    await wrapper.vm.$nextTick();
+    expect((wrapper.text().match('End the current day. Please select a stock from the stock tab') || []).length).toBe(1);
+    router.push('/stocks');
+    await wrapper.vm.$nextTick();
+    expect(wrapper.text()).toMatchSnapshot();
   });
 });
