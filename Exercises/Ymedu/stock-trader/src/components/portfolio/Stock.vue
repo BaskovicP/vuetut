@@ -52,7 +52,7 @@ export default {
     ...mapActions({
       placeSellOrder: 'sellStock'
     }),
-    sellStock: () => {
+    sellStock() {
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,
