@@ -1,10 +1,10 @@
 <template>
-  <div id="top-navigation-wrapper">
+  <div class="top-navigation-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="navbar-header">
         <router-link
           class="navbar-brand"
-          to="/"
+          :to="routes.HOME_ROUTE"
           tag="a">
           StockTrader
         </router-link>
@@ -25,17 +25,16 @@
             <router-link
               active-class="nav-link active"
               class="nav-link"
-              to="/portfolio"
+              :to="routes.PORTFOLIO_ROUTE"
               tag="a">
               Portfolio
             </router-link>
-            <!-- <a class="nav-link" href="#">Portfolio </a> -->
           </li>
           <li class="nav-item">
             <router-link
               active-class="nav-link active"
               class="nav-link"
-              to="/stocks"
+              :to="routes.STOCKS_ROUTE"
               tag="a">
               Stocks
             </router-link>
@@ -44,7 +43,7 @@
             <router-link
               active-class="nav-link active"
               class="nav-link"
-              to="/analysis"
+              :to="routes.ANALYSIS_ROUTE"
               tag="a">
               Analysis
             </router-link>
@@ -74,25 +73,25 @@
 </template>
 
 <script>
-
+import * as cons from '@/constants.js';
 import { mapActions, mapGetters } from 'vuex';
+console.log(cons);
 export default {
   computed: {
     ...mapGetters({
       funds: 'funds',
       day: 'day'
-    })
+    }),
+    routes: vm => cons
   },
-  methods: {
-    ...mapActions({
-      endDay: 'randomizeStocks'
-    })
-  }
+  methods: mapActions({
+    endDay: 'randomizeStocks'
+  })
 };
 </script>
 
 <style scoped>
-#top-navigation-wrapper {
+.top-navigation-wrapper {
   margin-bottom: 1rem;
 }
 </style>

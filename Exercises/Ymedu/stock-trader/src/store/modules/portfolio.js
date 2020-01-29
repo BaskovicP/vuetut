@@ -1,10 +1,12 @@
+import * as cons from '../../constants';
+
 const state = {
   funds: 10000,
   stocks: []
 };
 
 const mutations = {
-  'BUY_STOCK'(state, { stockId, quantity, stockPrice }) {
+  [cons.BUY_STOCK](state, { stockId, quantity, stockPrice }) {
     const record = state.stocks.find(element => element.id === stockId);
     if (record) {
       record.quantity += quantity;
@@ -18,7 +20,7 @@ const mutations = {
     quantity = quantity > 0 ? quantity : (-1 * quantity);
     state.funds -= stockPrice * quantity;
   },
-  'SELL_STOCK'(state, { stockId, quantity, stockPrice }) {
+  [cons.SELL_STOCK](state, { stockId, quantity, stockPrice }) {
     const record = state.stocks.find(element => element.id === stockId);
     if (record.quantity > quantity) {
       record.quantity -= quantity;
@@ -27,7 +29,7 @@ const mutations = {
     }
     state.funds += stockPrice * quantity;
   },
-  'SET_PORTFOLIO'(state, portfolio) {
+  [cons.SET_PORTFOLIO](state, portfolio) {
     state.funds = portfolio.funds;
     state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : [];
   }
@@ -35,7 +37,7 @@ const mutations = {
 
 const actions = {
   sellStock({ commit }, order) {
-    commit('SELL_STOCK', order);
+    commit(cons.SELL_STOCK, order);
   }
 
 };

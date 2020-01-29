@@ -5,25 +5,25 @@
     <div class="card text-white mb-3">
       <div class="card-header bg-success ">
         <h3 class="card-title">
-          {{ stock.name }}
-          <small>(Price: {{ stock.price }} | Quantity: {{ stock.quantity }})</small>
+          {{ name }}
+          <small>{{ cardHeader }}</small>
         </h3>
       </div>
       <div class="card-body">
         <div class="float-left">
           <input
-            v-model="quantity"
+            v-model="localQuantity"
             type="number"
             class="form-control"
             placeholder="Quantity"
-            :class="{danger: insufficientQuantity}">
+            :class="{danger: insufficientlocalQuantity}">
         </div>
         <div class="float-right">
           <button
-            @click="sellStock"
+            @click="sellThisStock"
             class="btn btn-success"
-            :disabled="insufficientQuantity || quantity <= 0 ">
-            {{ insufficientQuantity ? 'Not enough' : 'Sell' }}
+            :disabled="sellBtnIsDisabled">
+            {{ insufficientlocalQuantity ? 'Not enough' : 'Sell' }}
           </button>
         </div>
       </div>
@@ -41,22 +41,28 @@
 import { mapActions } from 'vuex';
 
 export default {
-  props: { stock: { type: [Object], required: true } },
-  data: () => ({ quantity: 0 }),
+  props: {
+    id: { type: Number, required: true },
+    quantity: { type: Number, required: true },
+    name: { type: String, required: true },
+    price: { type: Number, required: true }
+  },
+  data: () => ({ localQuantity: 0 }),
   computed: {
-    insufficientQuantity() {
-      return this.quantity > this.stock.quantity;
-    }
+    insufficientlocalQuantity: vm => vm.localQuantity > vm.quantity,
+    cardHeader: vm => `(Price: ${vm.price} | Quantity: ${vm.quantity})`,
+    sellBtnIsDisabled: vm => vm.insufficientlocalQuantity || (vm.localQuantity <= 0)
   },
   methods: {
     ...mapActions({
       placeSellOrder: 'sellStock'
     }),
-    sellStock() {
+    sellThisStock() {
+      console.log(this.stock);
       const order = {
-        stockId: this.stock.id,
-        stockPrice: this.stock.price,
-        quantity: this.quantity
+        stockId: this.id,
+        stockPrice: this.price,
+        quantity: parseInt(this.localQuantity, 10)
       };
       this.placeSellOrder(order);
     }

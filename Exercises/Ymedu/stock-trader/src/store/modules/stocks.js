@@ -1,3 +1,4 @@
+import * as cons from '../../constants';
 import stocks from '../../data/stocks';
 
 const state = {
@@ -8,18 +9,18 @@ const state = {
 };
 
 const mutations = {
-  'SET_STOCKS'(state, stocks) {
+  [cons.SET_STOCKS](state, stocks) {
     state.stocks = stocks;
     stocks.forEach(stock => state.stockHistory.push([['day', 'price']]));
   },
-  'RND_STOCKS'(state) {
+  [cons.RND_STOCKS](state) {
     state.stocks.forEach((stock, index) => {
       state.stockHistory[index].push([state.day, stock.price]);
       stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
     });
     state.day++;
   },
-  'SET_STOCKS_TO_ANALYZE'(state, value) {
+  [cons.SET_STOCKS_TO_ANALYZE](state, value) {
     if (!state.stockToAnalyse.includes(value)) state.stockToAnalyse.push(value);
     else state.stockToAnalyse = state.stockToAnalyse.filter(item => item !== value);
   }
@@ -27,16 +28,16 @@ const mutations = {
 
 const actions = {
   buyStock: ({ commit }, order) => {
-    commit('BUY_STOCK', order);
+    commit(cons.BUY_STOCK, order);
   },
   initStocks: ({ commit }) => {
-    commit('SET_STOCKS', stocks);
+    commit(cons.SET_STOCKS, stocks);
   },
   randomizeStocks: ({ commit }) => {
-    commit('RND_STOCKS');
+    commit(cons.RND_STOCKS);
   },
   analyzeThis: ({ commit }, value) => {
-    commit('SET_STOCKS_TO_ANALYZE', value);
+    commit(cons.SET_STOCKS_TO_ANALYZE, value);
   }
 };
 

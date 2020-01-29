@@ -1,4 +1,4 @@
-import { localVue, router, stringSearcher } from '../Factory';
+import { localVue, setRouter, stringSearcher } from '../Factory';
 import App from '@/App';
 import { mount } from '@vue/test-utils';
 import stock from '@/components/stocks/Stock';
@@ -6,8 +6,9 @@ import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
 
 describe('MainApp.vue', () => {
-  let wrapper;
+  let wrapper, router;
   beforeEach(() => {
+    router = setRouter();
     wrapper = mount(App, {
       store,
       router,
@@ -34,7 +35,11 @@ describe('MainApp.vue', () => {
   });
 
   it('should buy a new stock and the sell it', async () => {
-    router.push('/stocks');
+    // Important lesson learned here as you see from the test above we are already
+    // on the stocks route and then the promise returns an error
+    // router.push('/stocks');
+    // await wrapper.vm.$nextTick();
+
     await wrapper.vm.$nextTick();
     const firstStock = wrapper.find(stock);
     firstStock.find('.form-control').setValue(1000);
@@ -46,14 +51,34 @@ describe('MainApp.vue', () => {
     expect((firstStock.text().match('No funds') || []).length).toBe(0);
 
     firstStock.find('.btn').trigger('click');
-    expect(firstStock.find('.form-control').text()).toBe('');
+    firstStock.findAll('.btn').at(1).trigger('click'); // click the analyze also
 
     await wrapper.vm.$nextTick();
+    expect(firstStock.find('.form-control').text()).toBe('');
+
     router.push('/portfolio');
+    await wrapper.vm.$nextTick();
 
     expect(stringSearcher(wrapper,
       ['FUNDS: 9,890 HRK', 'BMW', 'Quantity: 1'])).toBe(true);
 
-    // expect(wrapper.text().match('FUNDS: 9,890 HRK'))
+    const firstPortfolioStock = wrapper.find('.form-control');
+
+    firstPortfolioStock.setValue('12');
+    expect((wrapper.text().match('Not enough') || []).length).toBe(1);
+    await wrapper.vm.$nextTick();
+
+    firstPortfolioStock.setValue('1');
+
+    wrapper.find('.btn').trigger('click');
+
+    await wrapper.vm.$nextTick();
+    expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
+  });
+  it('should not ask the user to select a stock', async () => {
+    // TODO: see the reason for the test cross contamination
+    router.push('/analysis');
+    await wrapper.vm.$nextTick();
+    expect((wrapper.text().match('Please select a stock fr') || []).length).toBe(0);
   });
 });
