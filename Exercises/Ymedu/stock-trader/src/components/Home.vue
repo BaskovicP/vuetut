@@ -10,10 +10,8 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  computed: {
-    ...mapGetters({
-      funds: 'funds'
-    })
-  }
+  computed: mapGetters({
+    funds: 'funds'
+  })
 };
 </script>

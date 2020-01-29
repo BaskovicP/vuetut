@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div v-if="noStocks">Please buy some stocks, you don't want to end poor.</div>
-    <app-stock v-for="stock in stocks" :key="stock.stockId" :stock="stock" />
+    <div v-if="!userHasStocks">Please buy some stocks, you don't want to end poor.</div>
+    <app-stock v-for="stock in stocks" :key="stock.stockId" v-bind="stock" />
   </div>
 </template>
 
@@ -11,10 +11,8 @@ import Stock from './Stock.vue';
 
 export default {
   computed: {
-    ...mapGetters({
-      stocks: 'stockPortfolio'
-    }),
-    noStocks() { return this.stocks.length <= 0; }
+    ...mapGetters({ stocks: 'stockPortfolio' }),
+    userHasStocks: vm => vm.stocks.length > 0
   },
   components: {
     appStock: Stock

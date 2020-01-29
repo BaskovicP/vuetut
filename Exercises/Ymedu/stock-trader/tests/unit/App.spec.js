@@ -51,6 +51,8 @@ describe('MainApp.vue', () => {
     expect((firstStock.text().match('No funds') || []).length).toBe(0);
 
     firstStock.find('.btn').trigger('click');
+    firstStock.findAll('.btn').at(1).trigger('click'); // click the analyze also
+
     await wrapper.vm.$nextTick();
     expect(firstStock.find('.form-control').text()).toBe('');
 
@@ -72,5 +74,11 @@ describe('MainApp.vue', () => {
 
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
+  });
+  it('should not ask the user to select a stock', async () => {
+    // TODO: see the reason for the test cross contamination
+    router.push('/analysis');
+    await wrapper.vm.$nextTick();
+    expect((wrapper.text().match('Please select a stock fr') || []).length).toBe(0);
   });
 });

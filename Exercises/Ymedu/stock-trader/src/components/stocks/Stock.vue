@@ -5,8 +5,8 @@
     <div class="card card-success">
       <div class="card-header bg-success ">
         <h3 class="card-title text-white">
-          {{ stock.name }}
-          <small>(Price: {{ stock.price }})</small>
+          {{ name }}
+          <small>(Price: {{ price }})</small>
         </h3>
       </div>
       <div class="card-body ">
@@ -22,12 +22,12 @@
           <button
             @click="buyStock"
             class="btn btn-success"
-            :disabled="disableBuy">
+            :disabled="insufficientFunds">
             {{ insufficientFunds ? 'No funds' : 'Buy' }}
           </button>
           <button
             @click="sendToAnalysis"
-            :class="stockSelectedForAnalysis"
+            :class="isSelectedAnalysisClass"
             style="margin-left:0.5rem">
             Analyze
           </button>
@@ -44,10 +44,12 @@
 </style>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   props: {
-    stock: { type: Object, required: true }
+    id: { type: Number, required: true },
+    name: { type: String, required: true },
+    price: { type: Number, required: true }
   },
   data: () => ({ quantity: 0 }),
   computed: {
@@ -55,32 +57,28 @@ export default {
       funds: 'funds',
       analysedStocks: 'stocksToAnalyze'
     }),
-    insufficientFunds() {
-      return this.quantity * this.stock.price > this.funds;
-    },
-    disableBuy() {
-      return this.insufficientFunds ||
-      +this.quantity <= 0 ||
-      !Number.isInteger(+this.quantity);
-    },
-    stockSelectedForAnalysis() {
-      return this.analysedStocks.includes(this.stock.id)
-        ? 'btn btn-danger' : 'btn btn-success';
-    }
+    insufficientFunds: vm => vm.quantity * vm.price > vm.funds,
+    isSelectedAnalysisClass: vm => vm.analysedStocks.includes(vm.id) ? 'btn btn-danger' : 'btn btn-success',
+    returnStock: vm => name
   },
   methods: {
+    ...mapActions({
+      placeOrder: 'buyStock',
+      analyzeThis: 'analyzeThis'
+    }),
     sendToAnalysis() {
-      this.$store.dispatch('analyzeThis', this.stock.id);
+      this.analyzeThis(this.id);
     },
     buyStock() {
       const order = {
-        stockId: this.stock.id,
-        stockPrice: this.stock.price,
+        stockId: this.id,
+        stockPrice: this.price,
         quantity: +this.quantity
       };
-      if (this.quantity > 0) { this.$store.dispatch('buyStock', order); }
+      if (this.quantity > 0) this.placeOrder(order);
       this.quantity = 0;
     }
   }
+
 };
 </script>
