@@ -58,7 +58,6 @@ export default {
       placeSellOrder: 'sellStock'
     }),
     sellThisStock() {
-      console.log(this.stock);
       const order = {
         stockId: this.id,
         stockPrice: this.price,

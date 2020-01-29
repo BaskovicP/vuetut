@@ -75,7 +75,7 @@
 <script>
 import * as cons from '@/constants.js';
 import { mapActions, mapGetters } from 'vuex';
-console.log(cons);
+
 export default {
   computed: {
     ...mapGetters({

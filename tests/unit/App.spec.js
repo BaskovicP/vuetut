@@ -1,3 +1,4 @@
+import * as cons from '../../src/constants';
 import { localVue, setRouter, stringSearcher } from '../Factory';
 import App from '@/App';
 import { mount } from '@vue/test-utils';
@@ -23,13 +24,13 @@ describe('MainApp.vue', () => {
     expect(wrapper.text().match('Trade or View your Portfolio').length).toBe(1);
   });
   it('should change the pages with router', async () => {
-    router.push('/portfolio');
+    router.push(cons.PORTFOLIO_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
-    router.push('/analysis');
+    router.push(cons.ANALYSIS_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('End the current day. Please select a stock from the stock tab') || []).length).toBe(1);
-    router.push('/stocks');
+    router.push(cons.STOCKS_ROUTE);
     await wrapper.vm.$nextTick();
     expect(wrapper.text()).toMatchSnapshot();
   });
@@ -56,7 +57,7 @@ describe('MainApp.vue', () => {
     await wrapper.vm.$nextTick();
     expect(firstStock.find('.form-control').text()).toBe('');
 
-    router.push('/portfolio');
+    router.push(cons.PORTFOLIO_ROUTE);
     await wrapper.vm.$nextTick();
 
     expect(stringSearcher(wrapper,
@@ -77,7 +78,7 @@ describe('MainApp.vue', () => {
   });
   it('should not ask the user to select a stock', async () => {
     // TODO: see the reason for the test cross contamination
-    router.push('/analysis');
+    router.push(cons.ANALYSIS_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('Please select a stock fr') || []).length).toBe(0);
   });
