@@ -1,9 +1,10 @@
-import { createLocalVue } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
 import { routes } from '@/router/routes';
+import store from '@/store/index';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 
-export const localVue = () => {
+export const createLocVue = () => {
   const tempLocalVue = createLocalVue();
   tempLocalVue.filter('currency', value => {
     return value.toLocaleString() + ' HRK';
@@ -13,7 +14,7 @@ export const localVue = () => {
   return tempLocalVue;
 };
 
-export const setRouter = () => new VueRouter({ routes });
+export const createRouter = () => new VueRouter({ routes, mode: 'abstract' });
 
 export const stringSearcher = (wrapper, arrayStrings) => {
   let allMatched = true;
@@ -22,3 +23,14 @@ export const stringSearcher = (wrapper, arrayStrings) => {
   });
   return allMatched;
 };
+
+export const getTestSetup = component => {
+  const router = createRouter();
+  const wrapper = mount(component, {
+    store,
+    router,
+    localVue: createLocVue()
+  });
+  return { router, wrapper };
+}
+;
