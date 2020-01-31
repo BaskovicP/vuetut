@@ -38,7 +38,6 @@
 </style>
 
 <script>
-import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -54,16 +53,13 @@ export default {
     sellBtnIsDisabled: vm => vm.insufficientlocalQuantity || (vm.localQuantity <= 0)
   },
   methods: {
-    ...mapActions({
-      placeSellOrder: 'sellStock'
-    }),
     sellThisStock() {
-      const order = {
-        stockId: this.id,
-        stockPrice: this.price,
-        quantity: parseInt(this.localQuantity, 10)
-      };
-      this.placeSellOrder(order);
+      this.$emit('sellStock',
+        {
+          id: this.id,
+          price: this.price,
+          quantity: this.localQuantity
+        });
     }
   }
 };
