@@ -22,12 +22,11 @@ const mutations = {
   },
   [cons.SELL_STOCK](state, { stockId, quantity, stockPrice }) {
     const record = state.stocks.find(element => element.id === stockId);
-    if (record.quantity > quantity) {
+    if (record && record.quantity >= quantity) {
       record.quantity -= quantity;
-    } else {
-      state.stocks.splice(state.stocks.indexOf(record), 1);
+      state.funds += stockPrice * quantity;
+      if (!record.quantity) state.stocks.splice(state.stocks.indexOf(record), 1);
     }
-    state.funds += stockPrice * quantity;
   },
   [cons.SET_PORTFOLIO](state, portfolio) {
     state.funds = portfolio.funds;

@@ -44,30 +44,23 @@
 </style>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     id: { type: Number, required: true },
     name: { type: String, required: true },
-    price: { type: Number, required: true }
+    price: { type: Number, required: true },
+    funds: { type: Number, required: true },
+    analysedStocks: { type: Array, required: true }
   },
   data: () => ({ quantity: 0 }),
   computed: {
-    ...mapGetters({
-      funds: 'funds',
-      analysedStocks: 'stocksToAnalyze'
-    }),
     insufficientFunds: vm => vm.quantity * vm.price > vm.funds,
-    isSelectedAnalysisClass: vm => vm.analysedStocks.includes(vm.id) ? 'btn btn-danger' : 'btn btn-success',
-    returnStock: vm => name
+    isSelectedAnalysisClass: vm => vm.analysedStocks.includes(vm.id) ? 'btn btn-danger' : 'btn btn-success'
   },
   methods: {
-    ...mapActions({
-      placeOrder: 'buyStock',
-      analyzeThis: 'analyzeThis'
-    }),
     sendToAnalysis() {
-      this.analyzeThis(this.id);
+      this.$emit('sendToAnalysis', this.id);
     },
     buyStock() {
       const order = {
@@ -75,7 +68,7 @@ export default {
         stockPrice: this.price,
         quantity: +this.quantity
       };
-      if (this.quantity > 0) this.placeOrder(order);
+      if (this.quantity > 0) this.$emit('buyStock', order);
       this.quantity = 0;
     }
   }

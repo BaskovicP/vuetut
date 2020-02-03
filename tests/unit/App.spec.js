@@ -1,45 +1,36 @@
-import { localVue, setRouter, stringSearcher } from '../Factory';
+import * as cons from '../../src/constants';
+import { getTestSetup, stringSearcher } from '../Factory';
 import App from '@/App';
-import { mount } from '@vue/test-utils';
 import stock from '@/components/stocks/Stock';
-import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
 
 describe('MainApp.vue', () => {
   let wrapper, router;
   beforeEach(() => {
-    router = setRouter();
-    wrapper = mount(App, {
-      store,
-      router,
-      localVue: localVue()
-    });
+    ({ wrapper, router } = getTestSetup(App));
   });
 
   it('contains the navigation bar component', () => {
     expect(wrapper.contains(TopNavigation)).toBe(true);
   });
   it('should render the component with a starting page', () => {
-    expect(wrapper.text().match('Trade or View your Portfolio').length).toBe(1);
+    router.push(cons.HOME_ROUTE);
+    expect((wrapper.text().match('Trade or View your Portfolio') || []).length).toBe(1);
   });
   it('should change the pages with router', async () => {
-    router.push('/portfolio');
+    router.push(cons.PORTFOLIO_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
-    router.push('/analysis');
+    router.push(cons.ANALYSIS_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('End the current day. Please select a stock from the stock tab') || []).length).toBe(1);
-    router.push('/stocks');
+    router.push(cons.STOCKS_ROUTE);
     await wrapper.vm.$nextTick();
     expect(wrapper.text()).toMatchSnapshot();
   });
 
   it('should buy a new stock and the sell it', async () => {
-    // Important lesson learned here as you see from the test above we are already
-    // on the stocks route and then the promise returns an error
-    // router.push('/stocks');
-    // await wrapper.vm.$nextTick();
-
+    router.push(cons.STOCKS_ROUTE);
     await wrapper.vm.$nextTick();
     const firstStock = wrapper.find(stock);
     firstStock.find('.form-control').setValue(1000);
@@ -56,7 +47,7 @@ describe('MainApp.vue', () => {
     await wrapper.vm.$nextTick();
     expect(firstStock.find('.form-control').text()).toBe('');
 
-    router.push('/portfolio');
+    router.push(cons.PORTFOLIO_ROUTE);
     await wrapper.vm.$nextTick();
 
     expect(stringSearcher(wrapper,
@@ -76,8 +67,7 @@ describe('MainApp.vue', () => {
     expect((wrapper.text().match('Please buy some stocks') || []).length).toBe(1);
   });
   it('should not ask the user to select a stock', async () => {
-    // TODO: see the reason for the test cross contamination
-    router.push('/analysis');
+    router.push(cons.ANALYSIS_ROUTE);
     await wrapper.vm.$nextTick();
     expect((wrapper.text().match('Please select a stock fr') || []).length).toBe(0);
   });

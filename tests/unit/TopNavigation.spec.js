@@ -1,15 +1,16 @@
-import { localVue, setRouter } from '../Factory';
+import { createLocVue, createRouter } from '../Factory';
 import { shallowMount } from '@vue/test-utils';
 import store from '@/store/index';
 import TopNavigation from '@/components/TopNavigation.vue';
 
 describe('MainApp.vue', () => {
   let wrapper;
+  const router = createRouter();
   beforeEach(() => {
     wrapper = shallowMount(TopNavigation, {
       store,
-      localVue: localVue(),
-      router: setRouter()
+      localVue: createLocVue(),
+      router
     });
   });
 
